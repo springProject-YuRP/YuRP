@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>YuRP</title>
 </head>
 <body>
-<h1>storOrderList</h1>
+<h1>여기는 매장에서 오더넣을꺼 수정해야함</h1>
+<table border="" width="1000px">
+<thead>
+  <colgroup>
+    <col width="20%"/>
+    <col width="15%"/>
+    <col width="30%"/>
+     <col width="10%"/>
+    <col width="20%" />
+    <col width="10%" />
+  </colgroup>
+	<tr>
+		<th>발주일</th>
+		<th>브랜드</th>
+		<th>전표번호</th>
+		<th>수량</th>
+		<th>금액</th>
+	</tr>
+</thead>
+<tbody>
+	<tr th:each="list : ${listData}">
+		<td th:text="${#dates.format(list.reg_date, 'yyyy/M/dd')}"></td>
+		<td th:text="${list.b_code}"></td>
+		<td th:text="${list.o_stat}"></td>
+		<td th:text="${list.tot_cnt}"></td>
+		<td th:text="${list.tot_price}"></td>
+		
+		
+		
+	</tr>
+</tbody>
+</table>
 </body>
 </html>
