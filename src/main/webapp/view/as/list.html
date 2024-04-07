@@ -2,9 +2,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 as 목록
+
+<table border="">
+	<thead>
+	  <colgroup>
+	    <col width="15%" />
+	    <col width="15%" />
+	    <col width="15%" />
+	    <col width="15%" />
+	    <col width="15%" />
+	    <col width="15%" />
+	  </colgroup>
+	  
+		<tr>
+			<th>NO</th>
+			<th>접수번호</th>
+			<th>접수매장</th>
+			<th>접수날짜</th>
+			<th>처리결과</th>
+			<th>진행여부</th>
+		</tr>
+		
+		<tr th:each="dto : ${mainData}">
+			<td th:text="${dtoStat.size - dtoStat.index}"></td><!-- 숫자 역순으로 뽑기 위해! -->
+			<td><a th:href="${dto.aNo}" th:text="${dto.asNum}"></a></td>
+			<td th:text="${dto.sName}"></td>
+			<td th:text="${dto.reg_date}"></td>
+			<td th:text="${dto.asRes}"></td>
+			<td th:text="${dto.asProg}"></td>
+		</tr>
+		<tr>
+			<td colspan="6" align="right">
+				<a href="/">뒤로가기</a>
+			</td>
+		</tr>
+	</thead>
+</table>
 </body>
 </html>
