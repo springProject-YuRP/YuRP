@@ -6,37 +6,40 @@
 </head>
 <body>
 <h1>등록할 때 상품 추가 페이지</h1>
-<table border="" width="1000px">
-<thead>
-  <colgroup>
-    <col width="20%"/>
-    <col width="15%"/>
-    <col width="30%"/>
-     <col width="10%"/>
-    <col width="20%" />
-    <col width="10%" />
-  </colgroup>
-	<tr>
-		<th>상품코드</th>
-		<td><input type="text"/></td>
-		<td><input type="button" value="조회"></td>
-	</tr>
-</thead>
-<tbody>
-	<tr>
-		<td>브랜드(어차피 브랜드 선택하니 그 브랜드꺼만 나오게)</td>
-		<td>품번</td>
-		<td>컬러</td>
-		<td>사이즈</td>
-		<td>품명</td>
-		<td>창고재고</td>
-		<td><input type="text" value="수량입력"></td>
-	</tr>
-	
-	<tr>
-		<td colspan="4"><a href="../order/prodAdd">상품추가</a></td>
-	</tr>
-</tbody>
-</table>
+<div>
+	<table border="" width="800px">
+		<thead>
+		  <colgroup>
+		    <col width="15%"/>
+		    <col width="20%"/>
+		    <col width="10%"/>
+		     <col width="10%"/>
+		    <col width="30%" />
+		    <col width="5%" />
+		    <col width="5%" />
+		  </colgroup>
+			<tr>
+				<th colspan="2">상품코드</th>
+				<td colspan="4"><input type="text"/></td>
+				<td><input type="button" value="조회"></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>브랜드</td> <!-- 브랜드 선택할거니 그 브랜드만 나오게 -->
+				<td>품번</td>
+				<td>컬러</td>
+				<td>사이즈</td>
+				<td>품명</td>
+				<td>창고재고</td>
+				<td>요청수량</td>
+			</tr>
+		
+			<tr>
+				<td colspan="4"><a href="../order/prodAdd">상품추가</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 </body>
 </html>
