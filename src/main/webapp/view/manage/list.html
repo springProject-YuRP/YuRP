@@ -36,7 +36,7 @@
 			<td th:text="${dto.addr}"/>
 			<td th:text="${dto.email}"/>
 			<td th:text="${dto.manager}"/>
-			<td><a href="#">수정[[${dto.no}]]</a></td>
+			<td><a th:href="@{|manage/modify/${dto.no}|}">수정[[${dto.no}]]</a></td>
 			<td><a th:href="@{|manage/delete/${dto.no}|}">삭제</a></td>
 		</tr>
 	</table>
