@@ -2,9 +2,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 공지 리스트
+
+<table border="">
+	<thead>
+	  <colgroup>
+	    <col width="20%" />
+	    <col width="40%" />
+	    <col width="40%" />
+	  </colgroup>
+	  
+		<tr>
+			<th>NO</th>
+			<th>제목</th>
+			<th>작성일</th>
+		</tr>
+		
+		<tr th:each="dto : ${nList}">
+			<td th:text="${dtoStat.size - dtoStat.index}"></td><!-- 숫자 역순으로 뽑기 위해! -->
+			<td><a th:href="@{|detail/${dto.n_no}|}" th:text="${dto.title}"></a></td>
+			<td th:text="${#dates.format(dto.reg_date, 'yyyy/M/dd')}"></td>
+		</tr>
+		<tr>
+			<td colspan="3" align="right">
+				<a href="/notice/insert">글쓰기</a>
+				<a href="/">뒤로가기</a>
+			</td>
+		</tr>
+	</thead>
+</table>
 </body>
 </html>
