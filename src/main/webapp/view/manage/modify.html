@@ -5,25 +5,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>계정 등록</h2>
-<form action="" method="post">
+<h2>계쩡 수정</h2>
+<form action="" method="post" th:object="${dto}">
 	<table>
 		<tr>
 			<td>매장아이디</td>
-			<td><input type="text" name="sCode" /></td>
+			<td><input type="text" th:field="*{sCode}" readonly /></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="text" name="sPw" /></td>
-		</tr>
-		<tr>
-			<td>비밀번호 확인</td>
-			<td><input type="text" name="sPw2" /></td>
+			<td><input type="text"  th:field="*{sPw}" /></td>
 		</tr>
 		<tr>
 			<td>매장등급</td>
 			<td>
-				<select name="grade">
+				<select  th:field="*{grade}">
 					<option value="1">플래그십</option>
 					<option value="2">일반</option>
 					<option value="3">아울렛</option>
@@ -33,25 +29,25 @@
 		</tr>
 		<tr>
 			<td>매장명</td>
-			<td><input type="text" name="sName"/></td>
+			<td><input type="text"  th:field="*{sName}"/></td>
 		</tr>
 		<tr>
 			<td>담당자</td>
-			<td><input type="text" name="manager"/></td>
+			<td><input type="text"  th:field="*{manager}"/></td>
 		</tr>
 		<tr>
 			<td>연락처</td>
-			<td><input type="text" name="tel" /></td>
+			<td><input type="text"  th:field="*{tel}" /></td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td><input type="text" name="addr" /></td>
+			<td><input type="text"  th:field="*{addr}" /></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" name="email" /></td>
+			<td><input type="text"  th:field="*{email}" /></td>
 		</tr>
-		
+
 	</table>
 	
 	<div class="authSetBox">

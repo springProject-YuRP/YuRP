@@ -46,15 +46,16 @@ public class ManageController {
 	}
 	
 	@GetMapping("modify/{no}")
-	String modifyForm(Model mm, StoreDTO dto) {
-		System.out.println("modifyForm 실행 : "+dto);
+	String modifyForm(Model mm, @PathVariable int no) {
+		System.out.println("modifyForm 실행 : "+no);
+		mm.addAttribute("dto",mapper.detail(no));
 		return "manage/modify";
 	}
 	
 	@PostMapping("modify/{no}")
 	String modifyReg(StoreDTO dto) {
-		System.out.println("modifyReg---");
-		int cnt = mapper.insert(dto);
+
+		int cnt = mapper.modify(dto);
 		System.out.println("---modifyReg"+cnt);
 		return "redirect:/manage";
 	}
