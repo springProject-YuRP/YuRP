@@ -14,10 +14,10 @@ public class SellController {
 	@Resource
 	SellMapper sellmapper;
 
-	@RequestMapping("product/list")
+	@RequestMapping("sales/list")
 	String sellList(Model mm) {
 		mm.addAttribute("sellData",sellmapper.list());
-		return "stock/product/list";
+		return "stock/sales/list";
 	}
 	
 }
