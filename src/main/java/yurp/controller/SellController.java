@@ -17,7 +17,6 @@ public class SellController {
 	@RequestMapping("product/list")
 	String sellList(Model mm) {
 		mm.addAttribute("sellData",sellmapper.list());
-		System.out.println("오냐?"+mm);
 		return "stock/product/list";
 	}
 	
