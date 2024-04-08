@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>YuRP</title>
+<style>
+	div{
+		float: left;
+		margin : 10px;
+	}
+</style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(function(){
+	$(".bName").click(function(){
+		var bName = $(this).text();
+		var url = '../brand/'+bName
+		$.ajax({
+			 type: 'get'
+	        , url: url
+	        , success: function (bdetail) {
+	            $('#bCode').text(bdetail);
+	        }
+		});
+	})		
+})
+</script>
 </head>
 <body>
 <h1>브랜드 명단임다</h1>
+<div>
+	<table border="">
+		<tr th:each="list : ${blist}">
+			<td th:text="${listStat.index+1}"></td>
+			<td th:text="${list.bCode}"></td>
+			<td th:text="${list.bName}" class="bName"></td>
+		</tr>
+		
+	</table>
+</div>
+<div>
+	<table border="" width="600px">
+		<tr>
+			<td>브랜드명</td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>브랜드코드</td>
+			<td id="bCode"></td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>전화번호</td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type="text"></td>
+		</tr>
+	</table>
+</div>
+<div id="zzz">
+
+
+</div>
 </body>
 </html>

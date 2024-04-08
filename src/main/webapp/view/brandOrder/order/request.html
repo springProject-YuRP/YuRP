@@ -3,55 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <title>YuRP</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function(){
+		$("#prodAdd").on("click",function(){
+
+			$.ajax({
+		        success:function(data){     
+		        	window.open("../order/prodAdd","_blank","width=1000,height=800"); 
+		        	
+		       	}
+				
+			});
+		});
+	})
+
+</script>
 </head>
 <body>
 <h1>브랜드 발주 요청페이지</h1>
-<form action="">
-	<table border="" width="1000px">
-		<thead>
-		  <colgroup>
-		    <col width="20%"/>
-		    <col width="15%"/>
-		    <col width="30%"/>
-		     <col width="10%"/>
-		 
-		  </colgroup>
-			<tr>
-				<th>브랜드</th>
-				<td >
-					<select name="brand">
-						<option value="브랜드1">브랜드1</option>
-						<option value="브랜드2">브랜드2</option>
-						<option value="브랜드3">브랜드3</option>
-					</select>
-				</td>
-				<th>전표번호</th>
-				<td ><input type="text" value="자동생성하게할거임"/></td>
-			</tr>
-			<tr>	
-				<th>발주날짜</th>
-				<td >[[${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}]]</td>
-			</tr>
-			<tr>
-				<th>수량</th>
-				<td>aaa</td>
-				<th>금액</th>
-				<td>aaa</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td colspan="4"></td>
-			</tr>
-			
-			<tr>
-				<td colspan="4"><a href="../order/prodAdd">상품추가</a></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="등록"/></td>
-			</tr>
-		</tbody>
-	</table>
-</form>
+<div>
+	<form action="">
+		<table border="" width="1000px">
+			<thead>
+			  <colgroup>
+			    <col width="20%"/>
+			    <col width="15%"/>
+			    <col width="30%"/>
+			     <col width="10%"/>
+			 
+			  </colgroup>
+				<tr>
+					<th>브랜드</th>
+					<td >
+						<select name="brand">
+							<option value="브랜드1">브랜드1</option>
+							<option value="브랜드2">브랜드2</option>
+							<option value="브랜드3">브랜드3</option>
+						</select>
+					</td>
+					<th>전표번호</th>
+					<td ><input type="text" value="자동생성하게할거임"/></td>
+				</tr>
+				<tr>	
+					<th>발주날짜</th>
+					<td >[[${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}]]</td>
+				</tr>
+				<tr>
+					<th>수량</th>
+					<td>0</td>
+					<th>금액</th>
+					<td>0</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="4"></td>
+				</tr>
+				
+				<tr>
+					<td colspan="4">
+						<input type="button" value="상품추가" id="prodAdd"/>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="등록"/></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
 </body>
 </html>
