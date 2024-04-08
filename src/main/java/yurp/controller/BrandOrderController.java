@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.annotation.Resource;
 import yurp.model.BrandOrderDTO;
@@ -31,8 +33,11 @@ public class BrandOrderController {
 	@RequestMapping("prodAdd")
 	void prodAdd(Model model) {}
 	
-	@RequestMapping("{o_stat}")
-	String detail(Model mm) {
+	@RequestMapping("detail")
+	String detail(Model model, @RequestParam String oStat) {
+		System.out.println(oStat);
+		List<BrandOrderDTO> detailData = mapper.list();
+		model.addAttribute("detailData",detailData);
 		return "brandOrder/order/detail";
 	}
 	

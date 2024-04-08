@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>YuRP</title>
 </head>
 <body>
-<h1>brandOrderDetail</h1>
+	<tr>
+		<td>번호</td>
+		<td>브랜드</td>
+		<td>품번</td>
+		<td>컬러</td>
+		<td>사이즈</td>
+		<td>품명</td>
+		<td>창고수량</td>
+		<td>요청수량</td>
+	</tr>
+	<tr th:each="detail : ${detailData}">
+		<td th:text="${detailStat.index+1}"></td>
+		<td th:text="${detail.bCode}"></td>
+		<td >품번</td>
+		<td>컬러</td>
+		<td>사이즈</td>
+		<td>품명</td>
+		<td>창고수량</td>
+		<td>요청수량</td>
+	</tr>
 </body>
 </html>

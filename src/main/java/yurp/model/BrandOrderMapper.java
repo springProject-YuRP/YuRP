@@ -10,4 +10,7 @@ public interface BrandOrderMapper {
 	
 	@Select("select * from orders")
 	List<BrandOrderDTO> list();
+	
+	@Select("select * from orders")
+	List<BrandOrderDTO> detail();
 }
