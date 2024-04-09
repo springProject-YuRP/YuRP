@@ -16,6 +16,8 @@ import jakarta.annotation.Resource;
 import yurp.model.BrandDTO;
 import yurp.model.BrandOrderDTO;
 import yurp.model.BrandOrderMapper;
+import yurp.model.ProductDTO;
+import yurp.model.ProductMapper;
 
 @Controller
 @RequestMapping("/brandOrder")
@@ -24,17 +26,39 @@ public class BrandOrderController {
 	@Resource
 	BrandOrderMapper mapper;
 	
+	@Resource
+	ProductMapper pmapper;
+	
 	@RequestMapping("order/list")
 	String list(Model model) {
 		model.addAttribute("listData", mapper.list());
 		return "brandOrder/order/list";
 	}
 	
-	@RequestMapping("order/request")
-	void request(Model model) {}
+	@GetMapping("order/request")
+	void request(Model model, ProductDTO dto) {
+		List<BrandDTO> bdto = mapper.blist();
+		List<ProductDTO> pdto = pmapper.list(dto);
+		model.addAttribute("bdto",bdto);
+		model.addAttribute("pdto",pdto);
+	}
 	
-	@RequestMapping("order/prodAdd")
-	void prodAdd(Model model) {}
+	@GetMapping("order/prodAdd")
+	void prodAdd(Model model, ProductDTO dto) {
+		List<ProductDTO> prod = pmapper.prodList(dto);
+		model.addAttribute("prod",prod);
+		
+	}
+	
+	@PostMapping("order/request")
+	void requestReg(Model model,@RequestParam String bCode) {
+		System.out.println(bCode);
+		/*
+		 * List<BrandDTO> bdto = mapper.blist(); List<ProductDTO> pdto =
+		 * pmapper.list(dto); model.addAttribute("bdto",bdto);
+		 * model.addAttribute("pdto",pdto);
+		 */
+	}
 	
 	@RequestMapping("order/detail")
 	String detail(Model model, @RequestParam String oStat) {
@@ -42,10 +66,19 @@ public class BrandOrderController {
 		return "brandOrder/order/detail";
 	}
 	
+	
+	
+	
+	//브랜드 관리
 	@GetMapping("brand/list")
 	String blist(Model model) {
 		model.addAttribute("blist",mapper.blist());
 		return "brandOrder/brand/list";
+	}
+	
+	@PostMapping("brand/list")
+	void insert(BrandDTO dto) {
+		mapper.insert(dto);
 	}
 	
 	@RequestMapping("brand/{bName}")
@@ -54,11 +87,6 @@ public class BrandOrderController {
 	    return mapper.bdetail(bName);
 	}
 
-	
-	@PostMapping("brand/list")
-	void insert(BrandDTO dto) {
-		mapper.insert(dto);
-	}
 	
 	@PostMapping("brand/{bNo}")
 	String modify(BrandDTO dto) {

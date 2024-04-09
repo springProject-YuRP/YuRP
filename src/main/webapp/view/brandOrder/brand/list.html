@@ -5,8 +5,7 @@
 <title>YuRP</title>
 <style>
 	.big{
-		display:block;
-		
+		display:block;	
 	}
 	.tab{
 		display:flex;
@@ -118,7 +117,12 @@ $(function(){
 	</div>
 	<div class="tab">
 		<div>
-			<table border="">
+			<table border="" width="400px">
+				<colgroup>
+					<col width="10%"/>
+					<col width="50%"/>
+					<col />
+				</colgroup>
 				<tr th:each="list : ${blist}">
 					<td th:text="${listStat.index+1}"></td>
 					<td th:text="${list.bNo}" class="bNo" style="display: none;"></td>
