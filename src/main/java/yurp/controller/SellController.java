@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
+import yurp.model.SellDTO;
 import yurp.model.SellMapper;
 
 @Controller
@@ -15,9 +16,9 @@ public class SellController {
 	SellMapper sellmapper;
 
 	@RequestMapping("sales/list")
-	String sellList(Model mm) {
-		mm.addAttribute("sellData",sellmapper.list());
-		mm.addAttribute("totData",sellmapper.tot());
+	String sellList(Model mm, SellDTO dto) {
+		mm.addAttribute("sellData",sellmapper.list(dto));
+		mm.addAttribute("totData",sellmapper.tot(dto));
 		return "stock/sales/list";
 	}
 	

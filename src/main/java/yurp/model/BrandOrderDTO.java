@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class BrandOrderDTO {
-	int oNo;
+	Integer oNo;
 	String oStat, excel, bCode;
 	int totPrice, totCnt;
 	Date regDate;

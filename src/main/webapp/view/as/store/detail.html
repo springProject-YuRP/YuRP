@@ -23,9 +23,9 @@ as 디테일
 			<th>NO</th>
 			<td th:text="${dto.aNo}"></td>
 			<th>매장코드</th>
-			<td th:text="${dto.bCode}"></td>
+			<td th:text="${dto.sCode}"></td>
 			<th>매장명</th>
-			<td th:text="${dto.bName}"></td>
+			<td th:text="${dto.sName}"></td>
 			<th>접수일</th>
 			<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
 		</tr>
@@ -47,7 +47,7 @@ as 디테일
 		</tr>
 		<tr>
 			<th>상품명</th>
-			<td colspan="7"></td>
+			<td th:text="${dto.pName}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>구매날짜</th>

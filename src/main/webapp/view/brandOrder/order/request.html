@@ -37,9 +37,10 @@
 					<th>브랜드</th>
 					<td >
 						<select name="brand">
-							<option value="브랜드1">브랜드1</option>
-							<option value="브랜드2">브랜드2</option>
-							<option value="브랜드3">브랜드3</option>
+							<th:block  th:each="bdto : ${bdto}">
+								<option th:value="${bdto.bName}">[[${bdto.bName}]]</option>
+							</th:block>
+					
 						</select>
 					</td>
 					<th>전표번호</th>
