@@ -26,16 +26,17 @@ as 목록
 			<th>진행여부</th>
 		</tr>
 		
-		<tr th:each="dto : ${mainData}">
+		<tr th:each="dto : ${aList}">
 			<td th:text="${dtoStat.size - dtoStat.index}"></td><!-- 숫자 역순으로 뽑기 위해! -->
-			<td><a th:href="${dto.aNo}" th:text="${dto.asNum}"></a></td>
-			<td th:text="${dto.sName}"></td>
-			<td th:text="${dto.reg_date}"></td>
+			<td><a th:href="@{|detail/${dto.aNo}|}" th:text="${dto.asNum}"></a></td>
+			<td th:text="${dto.bName}"></td>
+			<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
 			<td th:text="${dto.asRes}"></td>
 			<td th:text="${dto.asProg}"></td>
 		</tr>
 		<tr>
 			<td colspan="6" align="right">
+				<a href="/as/store/insert">as신청</a>
 				<a href="/">뒤로가기</a>
 			</td>
 		</tr>

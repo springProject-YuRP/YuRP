@@ -8,10 +8,10 @@ import lombok.Data;
 public class NoticeDTO {
 	
 	// 공지번호
-	Integer n_no;
+	Integer nNo;
 	//		제목, 	내용, 	파일
 	String title, content, file;
 	//	 등록 날짜
-	Date reg_date;
+	Date regDate;
 	
 }
