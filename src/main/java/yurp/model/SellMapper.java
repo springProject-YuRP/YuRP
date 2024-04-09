@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface SellMapper {
 
-	@Select("select "
+	@Select("<script>"
+			+ "select "
 			+ "a.sell_no,  "
 			+ "a.s_code,  "
 			+ "c.s_name,  "
@@ -25,12 +26,37 @@ public interface SellMapper {
 			+ "b.p_price*a.cnt as tot_price  "
 			+ "from sell as a  "
 			+ "left join product as b on a.p_code = b.p_code  "
-			+ "left join store as c on a.s_code =c.s_code")
-	List<SellDTO> list();
+			+ "left join store as c on a.s_code = c.s_code"
+			+ "<where>"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='pName != null and pName != \"\"' > "
+			+ "			b.p_name like concat('%',#{pName},'%') and"
+			+ "		</if> "
+			+ "		<if test='sName != null and sName != \"\"' > "
+			+ "			c.s_name like concat('%',#{sName},'%') "
+			+ "		</if> "
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> "
+			 )
+	List<SellDTO> list(SellDTO dto);
 	
-	@Select("select "
+	@Select("<script> "
+			+ "select "
 			+ "sum(b.p_price*a.cnt) as all_tot "
 			+ "from sell as a "
-			+ "left join product as b on a.p_code = b.p_code ")
-	List<SellDTO> tot();
+			+ "left join product as b on a.p_code = b.p_code "
+			+ "left join store as c on a.s_code = c.s_code"
+			+ "<where>"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='pName != null and pName != \"\"' > "
+			+ "			b.p_name like concat('%',#{pName},'%') and"
+			+ "		</if> "
+			+ "		<if test='sName != null and sName != \"\"' > "
+			+ "			c.s_name like concat('%',#{sName},'%') "
+			+ "		</if> "
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> ")
+	List<SellDTO> tot(SellDTO dto);
 }
