@@ -26,5 +26,6 @@ public class ProductController {
 		return "stock/product/list";
 	}
 	
-	
+	@GetMapping("insert")
+	void insertForm() {}
 }
