@@ -6,7 +6,7 @@
 <body>
 공지 수정
 
-<form action="" method="post" th:object="${dto}">
+<form action="" method="post" enctype="multipart/form-data" th:object="${dto}">
 	<table border="">
 		<thead>
 		  <colgroup>
@@ -23,7 +23,7 @@
 			<tr>
 				<th>파일</th>
 				<td>
-					<input type="text" th:field="*{file}" />
+					<input type="file" th:field="*{file}" />
 				</td>
 			</tr>
 			<tr>
