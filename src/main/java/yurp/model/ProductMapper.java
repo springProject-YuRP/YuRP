@@ -18,5 +18,13 @@ public interface ProductMapper {
 			+ "</where>"
 			+ "</script>")
 	List<ProductDTO> list(ProductDTO dto);
+	
+	
+	
+	@Select("select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, i.cnt  "
+			+ "from product p "
+			+ "join inventory i "
+			+ "where i.p_code = p.p_code and i.s_code  = 'admin'")
+	List<ProductDTO> prodList(ProductDTO dto);
 
 }
