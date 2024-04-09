@@ -18,4 +18,5 @@ public interface ProductMapper {
 			+ "</where>"
 			+ "</script>")
 	List<ProductDTO> list(ProductDTO dto);
+
 }

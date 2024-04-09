@@ -21,7 +21,7 @@ public class ProductController {
 	@RequestMapping
 	String productList(Model mm, ProductDTO dto) {
 		System.out.println("productList----"+dto);
-		mm.addAttribute("productList",mapper.list(dto));
+		mm.addAttribute("productData",mapper.list(dto));
 		System.out.println("productList"+mm);
 		return "stock/product/list";
 	}
