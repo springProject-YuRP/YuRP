@@ -22,7 +22,7 @@ public class NoticeController {
 	
 	// 목록보기
 	@RequestMapping("list")
-	String home(Model mm) {
+	String list(Model mm) {
 //		List<NoticeDTO> nList = mapper.list();
 //		System.out.println("nList : "+nList);
 		mm.addAttribute("nList", mapper.list());
@@ -30,9 +30,9 @@ public class NoticeController {
 	}
 	
 	// 상세보기
-	@RequestMapping("detail/{n_no}")
-	String detail(Model mm, @PathVariable int n_no) {
-		mm.addAttribute("dto", mapper.detail(n_no));
+	@RequestMapping("detail/{nNo}")
+	String detail(Model mm, @PathVariable int nNo) {
+		mm.addAttribute("dto", mapper.detail(nNo));
 //		System.out.println(mapper.detail(n_no));
 		return "notice/detail";
 	}
@@ -42,20 +42,21 @@ public class NoticeController {
 	void insertFrom() {}	// insert.html 열기
 	
 	@PostMapping("insert")
-	String insertReg(NoticeDTO dto) {
+	String insertReg(Model mm, NoticeDTO dto) {
 //		System.out.println(mapper.insert(dto));
-		return "notice/detail";	//작성 후 상세보기로 이동
+		mm.addAttribute("dto", mapper.insert(dto));
+		return "redirect:/";
 	}
 	
 
 	// 수정
-	@GetMapping("modify/{n_no}")
+	@GetMapping("modify/{nNo}")
 	String modifyForm(Model mm, NoticeDTO dto) {
-		mm.addAttribute("dto",mapper.detail(dto.getN_no()));
+		mm.addAttribute("dto",mapper.detail(dto.getNNo()));
 		return "notice/modify";
 	}
 	
-	@PostMapping("modify/{n_no}")
+	@PostMapping("modify/{nNo}")
 	String modifyReg(Model mm, NoticeDTO dto) {
 //		System.out.println(mapper.insert(dto));
 		mm.addAttribute("dto", mapper.modify(dto));
@@ -63,7 +64,7 @@ public class NoticeController {
 	}
 	
 	// 삭제
-	@GetMapping("delete/{n_no}")
+	@GetMapping("delete/{nNo}")
 	String delete(Model mm, NoticeDTO dto) {
 		mm.addAttribute("dto",  mapper.delete(dto));
 		return "redirect:/";

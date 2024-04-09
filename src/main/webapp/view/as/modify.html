@@ -6,68 +6,85 @@
 <body>
 as 처리
 
-<table border="">
-	<thead>
-	  <colgroup>
-	    <col width="10%" />
-	    <col width="10%" />
-	    <col width="10%" />
-	    <col width="10%" />
-	    <col width="10%" />
-	    <col width="10%" />
-	  </colgroup>
-	  
-	  
-  		<tr>
-			<th>매장코드</th>
-			<td th:text="${sCode}"></a></td>
-			<th>매장명</th>
-			<td th:text="${sName}"></a></td>
-			<th>접수일</th>
-			<td th:text="${reg_date}"></td>
-		</tr>
+<form action="" method="post" th:object="${dto}">
+	<table border="">
+		<thead>
+		  <colgroup>
+		    <col width="10%" />
+		    <col width="10%" />
+		    <col width="10%" />
+		    <col width="10%" />
+		    <col width="10%" />
+		    <col width="10%" />
+		  </colgroup>
+		  
+		  
+	  		<tr>
+				<th>매장코드</th>
+				<td th:text="${dto.bCode}"></td>
+				<th>매장명</th>
+				<td th:text="${dto.bName}"></td>
+				<th>접수일</th>
+				<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
+			</tr>
 		<tr>
 			<th>접수번호</th>
-			<td th:text="${asNum}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>고객성함</th>
-			<td th:text="${asName}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>고객연락처</th>
-			<td th:text="${asTel}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>상품명</th>
-			<td th:text="${Pname}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>구매날짜</th>
-			<td th:text="${purDate}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>의뢰내용</th>
-			<td th:text="${asNote}" colspan="7"></td>
-		</tr>
-		<tr>
-			<th>처리내용</th>
-			<td colspan="7"><textarea rows="5" cols="50"></textarea></td>
-		</tr>
-		<tr>
-			<th>수선비</th>
-			<td colspan="7"><input type="number" name="asPrice"/></td>
-		</tr>
-		
-		
-		
-		<tr>
-			<td colspan="8" align="right">
-				<a href="/as/modify">처리</a>
-				<a href="/as/list">취소</a>
+			<td th:text="${dto.asNum}"></td>
+			<th>처리결과</th>
+			<td>
+				<select name="asRes">
+					<option value="수선전">수선전</option>
+					<option value="수선완료">수선완료</option>
+					<option value="수선불가">수선불가</option>
+				</select>
+			</td>
+			<th>진행여부</th>
+			<td>
+				<select name="asProg">
+					<option value="수선중">수선중</option>
+					<option value="수선후발송">수선후발송</option>
+					<option value="수선등록">수선등록</option>
+					<option value="수선종료">수선종료</option>
+				</select>
 			</td>
 		</tr>
-	</thead>
-</table>
+			<tr>
+				<th>고객성함</th>
+				<td th:text="${dto.asName}" colspan="7"></td>
+			</tr>
+			<tr>
+				<th>고객연락처</th>
+				<td th:text="${dto.asTel}" colspan="7"></td>
+			</tr>
+			<tr>
+				<th>상품명</th>
+				<td colspan="7"></td>
+			</tr>
+			<tr>
+				<th>구매날짜</th>
+				<td th:text="${#dates.format(dto.purDate, 'yyyy/M/dd')}" colspan="7"></td>
+			</tr>
+			<tr>
+				<th>의뢰내용</th>
+				<td th:text="${dto.asNote}" colspan="7"></td>
+			</tr>
+			<tr>
+				<th>처리내용</th>
+				<td colspan="7"><textarea rows="5" cols="50" name="resCon"></textarea></td>
+			</tr>
+			<tr>
+				<th>수선비</th>
+				<td colspan="7"><input type="number" name="asPrice"/></td>
+			</tr>
+
+			<tr>
+				<td colspan="8" align="right">
+					<input type="submit" value="처리"/>
+					<a href="/as/list">취소</a>
+				</td>
+			</tr>
+		</thead>
+	</table>
+</form>
 </body>
 </html>

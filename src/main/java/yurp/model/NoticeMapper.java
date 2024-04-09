@@ -15,17 +15,17 @@ public interface NoticeMapper {
 	@Select("select * from notice")
 	List<NoticeDTO> list();
 	
-	@Select("select * from notice where n_no = #{n_no}")
-	NoticeDTO detail(int n_no);
+	@Select("select * from notice where n_no = #{nNo}")
+	NoticeDTO detail(int nNo);
 	
 	@Insert("insert into notice (title, content, file) values (#{title},#{content},#{file})")
 	int insert(NoticeDTO dto);
 	
 	@Update("update notice set "
 			+ "title = #{title}, content = #{content}, file = #{file} "
-			+ "where n_no = #{n_no}")
+			+ "where n_no = #{nNo}")
 	int modify(NoticeDTO dto);
 
-	@Delete("delete from notice where n_no = #{n_no}")
+	@Delete("delete from notice where n_no = #{nNo}")
 	int delete(NoticeDTO dto);
 }

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-as 매장디테일
+as 디테일
 
 <table border="">
 	<thead>
@@ -21,54 +21,55 @@ as 매장디테일
 	  
 		<tr>
 			<th>NO</th>
-			<td th:text="${asNo}"></a></td>
+			<td th:text="${dto.aNo}"></td>
 			<th>매장코드</th>
-			<td th:text="${sCode}"></a></td>
+			<td th:text="${dto.bCode}"></td>
 			<th>매장명</th>
-			<td th:text="${sName}"></a></td>
+			<td th:text="${dto.bName}"></td>
 			<th>접수일</th>
-			<td th:text="${reg_date}"></td>
+			<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
 		</tr>
 		<tr>
 			<th>접수번호</th>
-			<td th:text="${asNum}"></td>
+			<td th:text="${dto.asNum}"></td>
 			<th>처리결과</th>
-			<td th:text="${asRes}" colspan="2"></td>
+			<td th:text="${dto.asRes}" colspan="2"></td>
 			<th>진행여부</th>
-			<td th:text="${asProg}" colspan="2"></td>
+			<td th:text="${dto.asProg}" colspan="2"></td>
 		</tr>
 		<tr>
 			<th>고객성함</th>
-			<td th:text="${asName}" colspan="7"></td>
+			<td th:text="${dto.asName}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>고객연락처</th>
-			<td th:text="${asTel}" colspan="7"></td>
+			<td th:text="${dto.asTel}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>상품명</th>
-			<td th:text="${Pname}" colspan="7"></td>
+			<td colspan="7"></td>
 		</tr>
 		<tr>
 			<th>구매날짜</th>
-			<td th:text="${purDate}" colspan="7"></td>
+			<td th:text="${#dates.format(dto.purDate, 'yyyy/M/dd')}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>의뢰내용</th>
-			<td th:text="${asNote}" colspan="7"></td>
+			<td th:text="${dto.asNote}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>처리내용</th>
-			<td th:text="${resCon}" colspan="7"></td>
+			<td th:text="${dto.resCon}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>수선비</th>
-			<td th:text="${asPrice}" colspan="7"></td>
+			<td th:text="${dto.asPrice}" colspan="7"></td>
 		</tr>
 
 		<tr>
 			<td colspan="8" align="right">
-				<a href="/as/store/modify">수정</a>
+				<a th:href="@{|/as/store/modify/${dto.aNo}|}">수정</a>
+				<a th:href="@{|/as/store/delete/${dto.aNo}|}">삭제</a>
 				<a href="/as/list">목록으로</a>
 			</td>
 		</tr>
