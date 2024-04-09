@@ -17,6 +17,7 @@ public class SellController {
 	@RequestMapping("sales/list")
 	String sellList(Model mm) {
 		mm.addAttribute("sellData",sellmapper.list());
+		mm.addAttribute("totData",sellmapper.tot());
 		return "stock/sales/list";
 	}
 	

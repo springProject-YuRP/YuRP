@@ -7,34 +7,25 @@
 
 <title>상품 판매 현황</title>
 </head>
-<h1>product에 있던 list sales로 옮겼어여!!!</h1>
 <style>
 	.scr{
 		border: 1px solid #fff;
 		width: 1200px;
-		height: 450px;
-		overflow-y: scroll;
-	}
-	.bot{
-		position: sticky; 
-		bottom: 0;
-	}
-	.top{
-		position: sticky; 
-		top: 0;
+		height: 600px;
+		overflow-y: auto;
 	}
 	.header{
 		width: 100px;
 		
 	}
-	.hbar{
+	.searhbar{
 		width: 1200px;
 	}
 </style>
 <body>
 <h1>상품 판매 현황</h1>
 <form action="">
-<div class="hbar">
+<div class="searhbar">
 <table class="table table-striped-columns">
 	<tr>
 		<td class="header">날짜</td>
@@ -78,7 +69,7 @@
 </div>
 <div class="scr">
 <table class="table table-striped-columns">
-	<tr class="table-dark top">
+	<tr class="table-dark">
 		<td width="80px">번호</td>
 		<td width="120px">매장코드</td>
 		<td width="100px">매장명</td>
@@ -104,18 +95,20 @@
 			<td th:text="${dto.pSize}"></td>
 			<td th:text="${dto.season}"></td>
 			<td th:text="${dto.pName}"></td>
-			<td th:text="${dto.liPrice}"></td>
+			<td th:text="${#numbers.formatInteger(dto.liPrice, 3, 'COMMA')}"></td>
 			<td th:text="${dto.discount}"></td>
-			<td th:text="${dto.pPrice}"></td>
+			<td th:text="${#numbers.formatInteger(dto.pPrice, 3, 'COMMA')}"></td>
 			<td th:text="${dto.cnt}"></td>
-			<td th:text="${dto.totPrice}"></td>
+			<td th:text="${#numbers.formatInteger(dto.totPrice, 3, 'COMMA')}"></td>
 	</tr> 
-	<tr class="bot">
-		<td colspan="13" align="left">통계</td>
-		<td></td>
-	</tr>
 </table>
 </div>
+<table class="table table-striped-columns" style="width:1200px;">
+	<tr th:each="dto2 : ${totData}">
+		<td align="left">통계</td>
+		<td width="112px" th:text="${#numbers.formatInteger(dto2.allTot, 3, 'COMMA')}"></td>
+	</tr>
+</table>
 </form>
 
 

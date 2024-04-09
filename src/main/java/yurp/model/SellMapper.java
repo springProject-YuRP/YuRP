@@ -27,4 +27,10 @@ public interface SellMapper {
 			+ "left join product as b on a.p_code = b.p_code  "
 			+ "left join store as c on a.s_code =c.s_code")
 	List<SellDTO> list();
+	
+	@Select("select "
+			+ "sum(b.p_price*a.cnt) as all_tot "
+			+ "from sell as a "
+			+ "left join product as b on a.p_code = b.p_code ")
+	List<SellDTO> tot();
 }
