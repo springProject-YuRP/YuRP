@@ -37,22 +37,22 @@ public class ManageController {
 		return "redirect:/manage";
 	}
 	
-	@GetMapping("delete/{no}")
-	String delete(@PathVariable int no) {
+	@GetMapping("delete/{sNo}")
+	String delete(@PathVariable int sNo) {
 		System.out.println("삭제할껴?");
-		int cnt = mapper.delete(no);
+		int cnt = mapper.delete(sNo);
 		System.out.println("delete 실행 : "+cnt);
 		return "redirect:/manage";
 	}
 	
-	@GetMapping("modify/{no}")
-	String modifyForm(Model mm, @PathVariable int no) {
-		System.out.println("modifyForm 실행 : "+no);
-		mm.addAttribute("dto",mapper.detail(no));
+	@GetMapping("modify/{sNo}")
+	String modifyForm(Model mm, @PathVariable int sNo) {
+		System.out.println("modifyForm 실행 : "+sNo);
+		mm.addAttribute("dto",mapper.detail(sNo));
 		return "manage/modify";
 	}
 	
-	@PostMapping("modify/{no}")
+	@PostMapping("modify/{sNo}")
 	String modifyReg(StoreDTO dto) {
 
 		int cnt = mapper.modify(dto);

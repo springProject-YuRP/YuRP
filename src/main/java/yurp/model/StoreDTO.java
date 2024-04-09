@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StoreDTO {
-	Integer no, grade;
+	Integer sNo, grade;
 	String sCode, sPw, sName, addr, tel, email, manager, auth;
 	
 
