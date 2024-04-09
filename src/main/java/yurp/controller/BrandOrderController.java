@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +26,7 @@ public class BrandOrderController {
 	
 	@RequestMapping("order/list")
 	String list(Model model) {
-		List<BrandOrderDTO>listData = mapper.list();
-		model.addAttribute("listData",listData);
+		model.addAttribute("listData", mapper.list());
 		return "brandOrder/order/list";
 	}
 	
@@ -37,25 +38,38 @@ public class BrandOrderController {
 	
 	@RequestMapping("order/detail")
 	String detail(Model model, @RequestParam String oStat) {
-		System.out.println("브랜드발주 전표번호 : " + oStat);
-		List<BrandOrderDTO> detailData = mapper.list();
-		model.addAttribute("detailData",detailData);
+		model.addAttribute("detailData",mapper.list());
 		return "brandOrder/order/detail";
 	}
 	
-	@RequestMapping("brand/list")
+	@GetMapping("brand/list")
 	String blist(Model model) {
-		List<BrandDTO> blist = mapper.blist();
-		model.addAttribute("blist",blist);
+		model.addAttribute("blist",mapper.blist());
 		return "brandOrder/brand/list";
 	}
 	
 	@RequestMapping("brand/{bName}")
 	@ResponseBody
-	public BrandDTO bdetail(@PathVariable String bName) {
-	    BrandDTO bdetail = mapper.bdetail(bName);
-	    System.out.println(bdetail);
-	    return bdetail;
+	BrandDTO bdetail(@PathVariable String bName, Model model) {
+	    return mapper.bdetail(bName);
+	}
+
+	
+	@PostMapping("brand/list")
+	void insert(BrandDTO dto) {
+		mapper.insert(dto);
+	}
+	
+	@PostMapping("brand/{bNo}")
+	String modify(BrandDTO dto) {
+		mapper.modify(dto);
+		return "brandOrder/brand/list";
+	}
+	
+	@GetMapping("brand/delete/{bNo}")
+	String delete(BrandDTO dto) {
+		mapper.delete(dto);
+		return "redirect:/brandOrder/brand/list";
 	}
 
 	
