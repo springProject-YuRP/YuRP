@@ -2,6 +2,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function() {
+		$("#ok").click(function() {
+			if (confirm('수정하시겠습니까?')) {
+				document.location.href = '/notice/list';
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
+
 </head>
 <body>
 공지 수정
@@ -22,8 +35,8 @@
 			</tr>
 			<tr>
 				<th>파일</th>
-				<td>
-					<input type="file" th:field="*{file}" />
+				<td>[[${dto.file}]]
+					<input type="file" th:field="*{upFile}" multiple/>
 				</td>
 			</tr>
 			<tr>
@@ -34,7 +47,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-					<input type="submit" value="수정"/>
+					<input type="submit" value="수정" id="ok"/>
 					<a href="/notice/list">취소</a>
 				</td>
 			</tr>
