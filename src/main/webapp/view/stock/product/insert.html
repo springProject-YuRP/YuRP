@@ -9,31 +9,105 @@
 <body>
 <script>
 	$(function(){
-		getCode();
+
 	})
 	
-	function getCode(){
+	function getCode(n){
 		var pCode = '';
-		var pNum = $('#pNum').val();
-		var color = $('#color').val();
-		var pSize = $('#pSize').val();
+		var row = $(n).parents('.dataRow');
+		var target = row.find('input[name=pCode]');
+		var pNum = row.find('input[name=pNum]').val();
+		var color = row.find('input[name=color]').val();
+		var pSize = row.find('input[name=pSize]').val();
+		
 		
 		pCode = pNum+color+pSize;
 		
-		console.log(pCode)
-		$('#pCode').val(pCode);
+		console.log(target)
+		target.val(pCode);
+		pCode = '';
 	}
 	
-	function getPrice(){
+	function getPrice(n){
 		var pPrice = '';
-		var liPrice = Number($('#liPrice').val());
-		var discount = Number($('#discount').val());
+		var row = $(n).parents('.dataRow');
+		var target = row.find('input[name=pPrice]');
+		var liPrice = Number(row.find('input[name=liPrice]').val());
+		var discount = Number(row.find('input[name=discount]').val());
 		var pre = liPrice - (liPrice*discount/100);
 		
 		pPrice = Math.floor((pre/100))*100;
 		
-		$('#pPrice').val(pPrice);
+		target.val(pPrice);
 		
+	}
+	
+	
+	function addRow(){
+		var addData = `
+		<tr class="dataRow">
+	 		<td><div class="btn btn-sm btn-danger" onclick="delRow(this);">지우기</div></td>
+	 		<td>
+	 			<select class="form-select" name="bCode" required>
+		             <option value="" selected disabled hidden>브랜드 선택</option>
+	                 <option value="117901">브랜드1</option>
+	                 <option value="117902">브랜드2</option>
+	                 <option value="117903">브랜드3</option>
+		         </select>
+	 		</td>
+	 		<td>
+				<input type="text" class="form-control" name="season" required>
+			</td>
+			<td>
+				<select class="form-select" name="grade" required>
+		             <option value="0" selected>일반</option>
+		             <option value="1">스페셜</option>
+		         </select>
+			</td>
+			
+			<td>
+				<input type="text" class="form-control" name="pName" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="pNum" onKeyup="getCode(this);" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="color" onKeyup="getCode(this);" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="pSize" onKeyup="getCode(this);" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="pCode" onKeyup="getCode(this);" readonly required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="liPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="discount" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" required>
+			</td>
+			<td>
+				<input type="text" class="form-control" name="pPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" readonly required>
+			</td>
+		</tr>
+		`;
+
+
+		$('#dataBody').append(addData);
+		totCnt();
+	}
+	
+	function delRow(del){
+		var row = $(del).parents('.dataRow');
+		row.remove();
+		totCnt();
+	}
+	
+	function totCnt(){
+		var tot = $('.dataRow').length;
+		$('#rowCnt').text(tot);
+		console.log(tot)
+		return tot;
 	}
 </script>
 <style>	
@@ -42,71 +116,140 @@
 		max-width: 1200px;
 		margin: auto;
 	}
-
+	.tableBox {
+		width: 100%;
+		max-height: 600px;
+		overflow: auto;
+		text-align:center;
+	}
+	.table > thead{
+		position: sticky;
+		top:0;
+	}
+	
+	.table > tfoot{
+		position: sticky;
+		bottom: -1px;
+	}
 </style>
 <h2>상품 등록</h2>
 
 <section>
-	<form class="row g-3" action="">
-		<div class="col-md-6">
-			<label for="bCode" class="form-label">브랜드</label>
-		    <select class="form-select" name="bCode" required>
-	             <option value="" selected disabled hidden>브랜드 선택</option>
-                 <option value="117901">브랜드1</option>
-                 <option value="117902">브랜드2</option>
-                 <option value="117903">브랜드3</option>
-	         </select>
-		</div>
-		<div class="col-md-6">
-			<label for="grade" class="form-label">등급</label>
-		    <select class="form-select" name="grade" required>
-	             <option value="0" selected>일반</option>
-	             <option value="1">스페셜</option>
-	         </select>
-		</div>
-		<div class="col-md-4">
-			<label for="season" class="form-label">시즌</label>
-		    <input type="text" class="form-control" id="season">
-		</div>
-		<div class="col-md-8">
-			<label for="pName" class="form-label">상품명</label>
-		    <input type="text" class="form-control" id="pName" required>
-		</div>
-		<div class="col-md-6">
-			<label for="pNum" class="form-label">품번</label>
-		    <input type="text" class="form-control" id="pNum" onKeyup="getCode();" required>
-		</div>
-		
-		<div class="col-md-3">
-			<label for="color" class="form-label">컬러</label>
-		    <input type="text" class="form-control" id="color" onKeyup="getCode();" required>
-		</div>
-		<div class="col-md-3">
-			<label for="pSize" class="form-label">사이즈</label>
-		    <input type="text" class="form-control" id="pSize" onKeyup="getCode();" required>
-		</div>
-		<div class="col-md-12">
-			<label for="pCode" class="form-label">상품코드</label>
-		    <input type="text" class="form-control" id="pCode" onKeyup="getCode();" readonly required>
-		</div>
-		<div class="col-md-4">
-			<label for="liPrice" class="form-label">정상가</label>
-		    <input type="text" class="form-control" id="liPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice();" required>
-		</div>
-		
-		<div class="col-md-4">
-			<label for="discount" class="form-label">할인율</label>
-		    <input type="text" class="form-control" id="discount" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice();" required>
-		</div>
-		<div class="col-md-4">
-			<label for="pPrice" class="form-label">판매가</label>
-		    <input type="text" class="form-control" id="pPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice();" readonly required>
-		</div>
-		<div class="input-group justify-content-end">
-			<input class="btn btn-dark" type="submit" value="등록"/>
-		</div>	
+	<form action="" method="post">
+		<div class="tableBox mb-3">
+			<table class="table table-striped-columns">
+				<colgroup>
+					<col style="min-width:80px;"/>
+					<col style="min-width:150px;"/>
+					<col style="min-width:100px;"/>
+					<col style="min-width:120px;"/>
+					<col style="min-width:200px;"/>
+					<col style="min-width:150px;"/>
+					<col style="min-width:80px;"/>
+					<col style="min-width:80px;"/>
+					<col style="min-width:200px;"/>
+					<col style="min-width:120px;"/>
+					<col style="min-width:80px;"/>
+					<col style="min-width:120px;"/>
 
+				</colgroup>
+				<thead>
+					<tr class="table-dark top">
+						<td>No</td>
+						<td>브랜드</td>
+						<td>시즌</td>
+						<td>상품등급</td>
+						<td>상품명</td>
+						<td>품번</td>
+						<td>컬러</td>
+						<td>사이즈</td>
+						<td>상품코드</td>
+						<td>정가</td>
+						<td>할인율</td>
+						<td>판매가</td>
+
+					</tr>
+				</thead>
+				<tbody id="dataBody">
+					<tr class="dataRow">
+				 		<td><div class="btn btn-sm btn-danger" style="visibility:hidden;">지우기</div></td>
+				 		<td>
+				 			<select class="form-select" name="bCode" required>
+					             <option value="" selected disabled hidden>브랜드 선택</option>
+				                 <option value="117901">브랜드1</option>
+				                 <option value="117902">브랜드2</option>
+				                 <option value="117903">브랜드3</option>
+					         </select>
+				 		</td>
+				 		<td>
+							<input type="text" class="form-control" name="season" required>
+						</td>
+						<td>
+							<select class="form-select" name="grade" required>
+					             <option value="0" selected>일반</option>
+					             <option value="1">스페셜</option>
+					         </select>
+						</td>
+						
+						<td>
+							<input type="text" class="form-control" name="pName" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="pNum" onKeyup="getCode(this);" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="color" onKeyup="getCode(this);" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="pSize" onKeyup="getCode(this);" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="pCode" onKeyup="getCode(this);" readonly required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="liPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="discount" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" required>
+						</td>
+						<td>
+							<input type="text" class="form-control" name="pPrice" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');getPrice(this);" readonly required>
+						</td>
+					</tr>
+
+				</tbody>
+				<tfoot class="table-group-divider">
+					<tr class="tot table-secondary">
+						<td>통계</td>						
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>100 개</td>
+						<td>1,000,0000 원</td>
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="row justify-content-between align-items-center">
+			
+			<div class="col-auto mb-3">								
+						
+					<a href="/stock/product" class="btn btn-dark">목록으로 </a>	
+			</div>
+			<div class="col-auto mb-3">								
+					<div id="addBtn" class="btn btn-success" onclick="addRow();">추가</div>		
+					<a href="#" class="btn btn-primary">등록 <span id="rowCnt" class="badge text-bg-secondary">1</span></a>	
+			</div>
+		</div>
 	</form>
+	
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

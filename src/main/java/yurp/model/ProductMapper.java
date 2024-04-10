@@ -18,7 +18,7 @@ public interface ProductMapper {
 			+ "</if>"
 			+ "</where>"
 			+ "</script>")
-	List<ProductDTO> list(ProductDTO dto);
+	List<ProductDTO> list(ArrayList<ProductDTO> arr);
 	
 	@Select("select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
 			+ "from product p "
