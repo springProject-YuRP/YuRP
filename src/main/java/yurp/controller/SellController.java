@@ -2,6 +2,7 @@ package yurp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
@@ -21,5 +22,12 @@ public class SellController {
 		mm.addAttribute("totData",sellmapper.tot(dto));
 		return "stock/sales/list";
 	}
+	
+	@RequestMapping("sales/storeAdd")
+	String storeAdd(Model mm, SellDTO dto) {
+		mm.addAttribute("storeAdd", sellmapper.storeAdd(dto));
+		return "stock/sales/storeAdd";
+	}
+	
 	
 }

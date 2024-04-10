@@ -29,11 +29,28 @@ public interface SellMapper {
 			+ "left join store as c on a.s_code = c.s_code"
 			+ "<where>"
 			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			
+			+ "		<if test='pNum != null and pNum != \"\"' > "
+			+ "			b.p_num like concat('%',#{pNum},'%') and"
+			+ "		</if> "
 			+ "		<if test='pName != null and pName != \"\"' > "
 			+ "			b.p_name like concat('%',#{pName},'%') and"
 			+ "		</if> "
+			
 			+ "		<if test='sName != null and sName != \"\"' > "
-			+ "			c.s_name like concat('%',#{sName},'%') "
+			+ "			c.s_name like concat('%',#{sName},'%') and"
+			+ "		</if> "
+			
+			+ "		<if test='start != null and start != \"\"' > "
+			+ "			a.sell_date >= #{start} and"
+			+ "		</if> "
+			
+			+ "		<if test='end != null and end != \"\"' > "
+			+ "			 #{end} >= a.sell_date and"
+			+ "		</if> "
+			
+			+ "		<if test='start != null and start != \"\" and end != null and end != \"\"' > "
+			+ "			a.sell_date BETWEEN #{start} and #{end}"
 			+ "		</if> "
 			+ "	</trim>"
 			+ "</where> "
@@ -49,14 +66,57 @@ public interface SellMapper {
 			+ "left join store as c on a.s_code = c.s_code"
 			+ "<where>"
 			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='pNum != null and pNum != \"\"' > "
+			+ "			b.p_num like concat('%',#{pNum},'%') and"
+			+ "		</if> "
 			+ "		<if test='pName != null and pName != \"\"' > "
 			+ "			b.p_name like concat('%',#{pName},'%') and"
 			+ "		</if> "
+			
 			+ "		<if test='sName != null and sName != \"\"' > "
-			+ "			c.s_name like concat('%',#{sName},'%') "
+			+ "			c.s_name like concat('%',#{sName},'%') and"
+			+ "		</if> "
+			
+			+ "		<if test='start != null and start != \"\"' > "
+			+ "			a.sell_date >= #{start} and"
+			+ "		</if> "
+			
+			+ "		<if test='end != null and end != \"\"' > "
+			+ "			 #{end} >= a.sell_date and"
+			+ "		</if> "
+			
+			+ "		<if test='start != null and start != \"\" and end != null and end != \"\"' > "
+			+ "			a.sell_date BETWEEN #{start} and #{end}"
 			+ "		</if> "
 			+ "	</trim>"
 			+ "</where> "
 			+ "</script> ")
 	List<SellDTO> tot(SellDTO dto);
+	
+	@Select("<script> "
+			+ "select "
+			+ "s_no, "
+			+ "s_code, "
+			+ "s_name, "
+			+ "manager, "
+			+ "addr "
+			+ "from store"
+			+ "<where>"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='sCode != null and sCode != \"\"' > "
+			+ "			s_code like concat('%',#{sCode},'%') and"
+			+ "		</if> "
+			+ "		<if test='manager != null and manager != \"\"' > "
+			+ "			manager like concat('%',#{manager},'%') and"
+			+ "		</if> "
+			
+			+ "		<if test='sName != null and sName != \"\"' > "
+			+ "			s_name like concat('%',#{sName},'%') "
+			+ "		</if> "
+			
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> ")
+	List<SellDTO> storeAdd(SellDTO dto);
+	
 }
