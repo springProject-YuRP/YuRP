@@ -4,6 +4,13 @@ import lombok.Data;
 
 @Data
 public class SellDTO {
-	int sellNo, liPrice, discount, pPrice, cnt, totPrice,allTot;
-	String pCode, pNum, sCode, sName, color, pSize, season, pName, sellDate;
+	int sellNo, liPrice, discount, pPrice, cnt, totPrice,allTot,sNo;
+	String start,end,pCode, pNum, sCode, sName, addr, 
+	color, pSize, season, pName, sellDate, manager;
+	
 }
+
+
+
+
+
