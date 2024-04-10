@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
+import yurp.model.DTOs;
 import yurp.model.ProductDTO;
 import yurp.model.ProductMapper;
 
@@ -19,9 +20,9 @@ public class ProductController {
 	ProductMapper mapper;
 	
 	@RequestMapping
-	String productList(Model mm, ProductDTO dto) {
-		System.out.println("productList----"+dto);
-		mm.addAttribute("productData",mapper.list(dto));
+	String productList(Model mm, DTOs dtos) {
+		System.out.println("productList----"+dtos);
+		mm.addAttribute("productData",mapper.list(dtos.getProductArr()));
 		System.out.println("productList"+mm);
 		return "stock/product/list";
 	}

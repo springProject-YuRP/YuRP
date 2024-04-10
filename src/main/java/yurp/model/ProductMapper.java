@@ -1,5 +1,6 @@
 package yurp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +18,7 @@ public interface ProductMapper {
 			+ "</if>"
 			+ "</where>"
 			+ "</script>")
-	List<ProductDTO> list(ProductDTO dto);
+	List<ProductDTO> list(ArrayList<ProductDTO> arr);
 	
 	
 	

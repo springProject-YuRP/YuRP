@@ -4,9 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>상품 판매 현황</title>
 </head>
+<script>
+	$(function(){
+		rowChk();
+	})
+
+	function rowChk(){
+		$('.dataRow button').click(function(){
+			var row = $(this).parents('.dataRow');
+			
+			row.toggleClass('active table-primary');
+			console.log( row.hasClass('active'))
+			console.log(row.find('input[type="text"]'));
+			row.find('input[type="text"]').attr('disabled', row.hasClass('active') ? false:true);
+		});
+	}
+	
+	
+	function getCode(){
+		var pCode = '';
+		var pNum = $('#pNum').val();
+		var color = $('#color').val();
+		var pSize = $('#pSize').val();
+		
+		pCode = pNum+color+pSize;
+		
+		console.log(pCode)
+		$('#pCode').val(pCode);
+	}
+</script>
+
+
+
 <style>	
 	section {
 		width: 100%;
@@ -23,6 +55,7 @@
 		width: 100%;
 		max-height: 600px;
 		overflow: auto;
+		text-align:center;
 	}
 	.table > thead{
 		position: sticky;
@@ -33,6 +66,29 @@
 		position: sticky;
 		bottom: -1px;
 	}
+	
+	.table input[type="text"]{
+		
+		width: 100%;
+		border: none;
+		background-color: transparent;
+		display: none;
+	}
+	.table input[type="checkbox"]{
+		cursor: pointer;
+	}
+	
+	.dataRow span{
+		display: inline-block;
+		width: 100%;
+	}
+	.dataRow.active span{
+		display: none;
+	}
+	.dataRow.active input[type="text"]{
+		display: inline;
+	}
+	
 
 </style>
 <body>
@@ -149,7 +205,7 @@
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
-				<col style=""/>
+				<col style="min-width:80px; width: 5%;"/>
 				<col style=""/>
 				<col style=""/>
 				<col style=""/>
@@ -165,6 +221,7 @@
 			</colgroup>
 			<thead>
 				<tr class="table-dark top">
+					<td></td>
 					<td>시즌</td>
 					<td>브랜드</td>
 					<td>상품등급</td>
@@ -182,6 +239,7 @@
 			</thead>
 			<tbody>		
 			 	<tr th:each="dto : ${productData}" >
+			 		<td><input type="checkbox"/></td>
 					<td th:text="${dto.season}"/>
 					<td th:text="${dto.bCode}"/>
 					<td th:text="${dto.grade}"/>
@@ -190,9 +248,9 @@
 					<td th:text="${dto.color}"/>
 					<td th:text="${dto.pSize}"/>
 					<td th:text="${dto.pCode}"/>
-					<td th:text="|${#numbers.formatInteger(dto.liPrice, 0, 'COMMA')}원|"/>
+					<td th:text="|${#numbers.formatInteger(dto.liPrice, 0, 'COMMA')}|"/>
 					<td th:text="${dto.discount}"/>
-					<td th:text="|${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}원|"/>
+					<td th:text="|${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|"/>
 					<td><a th:href="@{|stock/product/modify/${dto.pNo}|}">수정</a></td>
 					<td><a th:href="@{|stock/product/delete/${dto.pNo}|}">삭제</a></td>
 				</tr> 
@@ -209,6 +267,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td>100 개</td>
 					<td>1,000,0000 원</td>
 					<td></td>
@@ -217,12 +276,132 @@
 			</tfoot>
 		</table>
 	</div>
-	<div class="row justify-content-end align-items-center">
+	<div class="row justify-content-between align-items-center">
 		<div class="col-auto mb-3">				
-				<a href="product/insert" class="btn btn-dark">등록</a>	
+				<a href="product/insert" class="btn btn-warning">선택수정</a>	
+				<a href="product/insert" class="btn btn-danger">선택삭제</a>	
+		</div>
+		<div class="col-auto mb-3">				
+				<a href="product/insert" class="btn btn-primary">상품추가</a>	
 		</div>
 	</div>
 </section>
+<!-- 
+<section>
+	<form action="" method="post">
+		<div class="tableBox mb-3">
+			<table class="table table-striped-columns">
+				<colgroup>
+					<col style="min-width:50px; width: 2%;"/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+					<col style=""/>
+				</colgroup>
+				<thead>
+					<tr class="table-dark top">
+						<td>전체<input type="checkbox"/></td>
+						<td>시즌</td>
+						<td>브랜드</td>
+						<td>상품등급</td>
+						<td>상품명</td>
+						<td>품번</td>
+						<td>컬러</td>
+						<td>사이즈</td>
+						<td>상품코드</td>
+						<td>정가</td>
+						<td>할인율</td>
+						<td>판매가</td>
+
+					</tr>
+				</thead>
+				<tbody>
+
+				 	<tr class="dataRow" th:each="dto : ${productData}">
+				 		<td><button type="button"></button></td>
+				 		<td>
+				 			<span th:text="${dto.season}"/>
+				 			<input type="text" th:value='${dto.season}' name="season" disabled required />
+				 		</td>
+						<td>
+							<span th:text="${dto.bCode}"/>
+							<input type="text" th:value='${dto.bCode}' name="bCode" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.grade}"/>	
+							<input type="text" th:value='${dto.grade}' name="grade" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.pName}"/>
+							<input type="text" th:value='${dto.pName}' name="pName" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.pNum}"/>
+							<input type="text" th:value='${dto.pNum}' name="pNum" class="pNum" onKeyup="getCode();" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.color}"/>
+							<input type="text" th:value='${dto.color}' name="color" class="color" onKeyup="getCode();" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.pSize}"/>
+							<input type="text" th:value='${dto.pSize}' name="pSize" class="pSize" onKeyup="getCode();" disabled required />
+						</td>
+						<td>
+							<span th:text="${dto.pCode}"/>
+							<input type="text" th:value='${dto.pCode}' name="pCode" class="pCode" onKeyup="getCode();" readonly disabled required />
+						</td>
+						<td>
+							<span th:text="|${#numbers.formatInteger(dto.liPrice, 0, 'COMMA')}|"/>
+							<input type="text" th:value='${dto.liPrice}' name="liPrice" class="" onKeyup="" disabled required />
+						</td>
+						<td>
+							<span th:text="|${dto.discount}%|"/>
+							<input type="text" th:value='${dto.discount}' name="discount" class="" onKeyup="" disabled required />
+						</td>
+						<td>
+							<span th:text="|${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|"/>
+							<input type="text" th:value='${dto.pPrice}' name="pPrice" class="" onKeyup="" readonly disabled required />
+						</td>
+						<td><a th:href="@{|stock/product/modify/${dto.pNo}|}">수정</a></td>
+						<td><a th:href="@{|stock/product/delete/${dto.pNo}|}">삭제</a></td>
+					</tr> 
+
+				</tbody>
+				<tfoot class="table-group-divider">
+					<tr class="tot table-secondary">
+						<td>통계</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>100 개</td>
+						<td>1,000,0000 원</td>
+
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<div class="row justify-content-end align-items-center">
+			<div class="col-auto mb-3">				
+					<a href="product/insert" class="btn btn-dark">등록</a>	
+			</div>
+		</div>
+	</form>
+</section> -->
 
 
 
