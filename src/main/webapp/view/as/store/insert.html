@@ -2,6 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function() {
+		$("#chkS").click(function() {
+			if (confirm('as처리하시겠습니까?')) {
+				document.location.href = '/';
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
 </head>
 <body>
 as 매장추가
@@ -13,14 +25,14 @@ as 매장추가
 		    <col width="30%" />
 		    <col width="70%" />
 		  </colgroup>
-		  
+		   
 			<tr>
 				<th>접수번호</th>
-				<td><input type="text" name="asNum"/></td>
+				<td><input type="text" name="asNum" value=""/>자동으로 가져와야함
 			</tr>
 			<tr>
 				<th>매장코드</th>
-				<td><input type="text" name="sCode"/></td>
+				<td><input type="text" name="sCode"/><button id="chkS">조회</button></td>
 			</tr>
 			<tr>
 				<th>매장명</th>
@@ -36,7 +48,7 @@ as 매장추가
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td><input type="text" name="pCode"/></td>
+				<td><input type="text" name="pCode"/><button id="chkP">조회</button></td>
 			</tr>
 			<tr>
 				<th>상품명</th>
@@ -44,7 +56,7 @@ as 매장추가
 			</tr>
 			<tr>
 				<th>구매날짜</th>
-				<td><input type="text" name="purDate"/></td>
+				<td><input type="date" name="purDate"/></td>
 			</tr>
 			<tr>
 				<th>의뢰내용</th>

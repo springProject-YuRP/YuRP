@@ -2,9 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function() {
+		$("#ok").click(function() {
+			if (confirm('as처리하시겠습니까?')) {
+				document.location.href = '/as/list';
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
 </head>
 <body>
-as 처리
+<h1>as 처리</h1>
 
 <form action="" method="post" th:object="${dto}">
 	<table border="">
@@ -43,8 +55,7 @@ as 처리
 				<select name="asProg">
 					<option value="수선중">수선중</option>
 					<option value="수선후발송">수선후발송</option>
-					<option value="수선등록">수선등록</option>
-					<option value="수선종료">수선종료</option>
+					<option value="수선불가">수선불가</option>
 				</select>
 			</td>
 		</tr>
@@ -79,7 +90,7 @@ as 처리
 
 			<tr>
 				<td colspan="8" align="right">
-					<input type="submit" value="처리"/>
+					<input type="submit" value="처리" id="ok"/>
 					<a href="/as/list">취소</a>
 				</td>
 			</tr>

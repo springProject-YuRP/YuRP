@@ -8,12 +8,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+
 @Mapper
 public interface AsMapper {
 
-	@Select("SELECT ascenter.*, a.s_name from ascenter "
-			+ "INNER JOIN store AS a ON a.s_code = ascenter.s_code;")
-	List<AsDTO> list();
+	@Select("SELECT ascenter.*, a.s_name as sName from ascenter "
+			+ "INNER JOIN store AS a ON a.s_code = ascenter.s_code")
+	List<AsDTO> list(AsDTO dto);
 	
 	@Select("SELECT ascenter.*, a.s_name, b.p_name "
 			+ "FROM ascenter "
@@ -41,4 +42,45 @@ public interface AsMapper {
 	@Delete("delete from ascenter where a_no = #{aNo}")
 	int delete(AsDTO dto);
 	
+	
+	//------검색
+	//전체 매장명
+	@Select("SELECT s_name FROM store")
+	List<AsDTO> sNames();
+	
+	
+	@Select({
+		" <script> "
+		," SELECT ascenter.*, a.s_name as sName from ascenter "
+		, "INNER JOIN store AS a ON a.s_code = ascenter.s_code"
+		, " <where> "
+		, " 	<choose> "
+		, " 		<when test='start != null'> "
+		, " 			AND reg_date = #{start} "
+		, " 		</when> "
+		, " 		<when test='end != null'> "
+		, " 			AND reg_date = #{end} "
+		, " 		</when> "
+		, " 		<when test='sName != null'> "
+		, " 			AND a.s_name = #{sName} "
+		, " 		</when> "
+		, " 		<when test='sName != null'> "
+		, " 			AND a.s_name = #{sName} "
+		, " 		</when> "
+		, " 		<when test='asRes != null'> "
+		, " 			AND as_res = #{asRes} "
+		, " 		</when> "
+		, " 		<when test='asProg != null'> "
+		, " 			AND as_prog = #{asProg} "
+		, " 		</when> "
+		, " 		<when test='asTel != null'> "
+		, " 			AND as_tel like #{asTel} "
+		, " 		</when> "
+		, " 		<when test='asNum != null'> "
+		, " 			AND as_num like #{asNum} "
+		, " 		</when> "
+		, " 	</choose> "
+		, " </where> "
+		, " </script> "})
+	List<AsDTO> listPname(AsDTO dto);
 }
