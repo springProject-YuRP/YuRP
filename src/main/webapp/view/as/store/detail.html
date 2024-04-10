@@ -2,6 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function() {
+		$("#no").click(function() {
+			if (confirm('삭제하시겠습니까?')) {
+				document.location.href = '/as/list';
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
 </head>
 <body>
 as 디테일
@@ -69,7 +81,7 @@ as 디테일
 		<tr>
 			<td colspan="8" align="right">
 				<a th:href="@{|/as/store/modify/${dto.aNo}|}">수정</a>
-				<a th:href="@{|/as/store/delete/${dto.aNo}|}">삭제</a>
+				<a th:href="@{|/as/store/delete/${dto.aNo}|}" id="no">삭제</a>
 				<a href="/as/list">목록으로</a>
 			</td>
 		</tr>

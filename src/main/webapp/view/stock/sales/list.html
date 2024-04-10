@@ -8,109 +8,174 @@
 <title>상품 판매 현황</title>
 </head>
 <style>
+ 	section {
+		width: 100%;
+		max-width: 1200px;
+		margin: auto;
+	}
 	.scr{
 		border: 1px solid #fff;
 		width: 1200px;
+		height: 450px;
+		overflow-y: scroll;
+	}
+	.tableBox {
+		width: 100%;
 		max-height: 600px;
-		overflow-y: auto;
+		overflow: auto;
 	}
-	.header{
-		width: 100px;
-		
+	.table > thead{
+		position: sticky;
+		top:0;
 	}
-	.searhbar{
-		width: 1200px;
+	
+	.table > tfoot{
+		position: sticky;
+		bottom: -1px;
 	}
+
 </style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(function(){
+	$('#storeAdd').on("click",function(e){
+		
+		e.preventDefault();
+		let popUrl = "../sales/storeAdd";
+		let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes";
+		
+		window.open(popUrl,"매장",popOption);
+		
+	});
+})
+
+</script>
 <body>
 <h1>상품 판매 현황</h1>
+<section>
 <form action="">
-<div class="searhbar">
-<table class="table table-striped-columns">
-	<tr>
-		<td class="header">날짜</td>
-		<td width="450px"><input type="date" name="start"> ~ <input type="date" name="end"></td>
-		<td class="header">상품명검색</td>
-		<td width="450px">
-		<div class="input-group">
-			<input type="text" name="pName"/>
-			<button class="btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-			  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-			</svg></button>
+	<div class="searchBox container mb-3 border-bottom">
+		<div class="row g-3 align-items-center">		
+			<div class="col-md-auto">			
+				<div class="input-group">
+					<span class="input-group-text">판매날짜</span>
+					<input type="date" class="form-control" name="start">
+					<div class="px-2"> ~ </div> 
+					<input type="date" class="form-control" name="end">
+				</div>
 			</div>
-		</td>
-	</tr>
-	<tr>
-		<td class="header">매장명</td>
-		<td width="450px">
-		<div class="input-group">
-			<input type="text" name="sName"/>
-			<button class="btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-			  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-			</svg></button>
+			<div class="col-md-auto">				
+				<div class="input-group">
+					<span class="input-group-text">매장명</span>
+					<input type="text" class="form-control" name="sName" placeholder="매장명 입력"/>
+					<div id="storeAdd" class="btn btn-outline-secondary" ><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					</svg></div>
+				</div>
 			</div>
-		</td>
-		<td class="header">품번</td>
-		<td width="450px">
-		<div class="input-group">
-			<input type="text" name="pNum"/>
-			<button class="btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-			  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-			</svg></button>
+			<div class="col-md-auto">				
+				<div class="input-group">
+					<span class="input-group-text">품번</span>
+					<input type="text" class="form-control" name="pNum" placeholder="품번 입력"/>
+					<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					</svg></button>
+				</div>
+			</div>						
+			<div class="col-md-auto">				
+				<div class="input-group">
+					<span class="input-group-text">상품명</span>
+					<input type="text" class="form-control" name="pName" placeholder="상품명 입력"/>
+					<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+					</svg></button>
+				</div>
+			</div>						
+		</div>
+		<div class="row justify-content-end align-items-center">
+			<div class="col-auto mb-3">				
+				<div class="input-group">
+					<input class="btn btn-dark" type="submit" value="검색"/>
+				</div>	
 			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="4" align="right">
-			<input class="btn btn-dark" type="submit" value="검색"/>
-		</td>
-	</tr>
-</table>
-</div>
-<div class="scr">
-<table class="table table-striped-columns">
-	<tr class="table-dark">
-		<td width="80px">번호</td>
-		<td width="120px">매장코드</td>
-		<td width="100px">매장명</td>
-		<td width="150px">판매날짜</td>
-		<td width="100px">품번</td>
-		<td width="80px">컬러</td>
-		<td width="100px">사이즈</td>
-		<td width="80px">시즌</td>
-		<td width="150px">상품명</td>
-		<td width="100px">정가</td>
-		<td width="100px">할인율</td>
-		<td width="150px">상품판매가</td>
-		<td width="150px">판매수량</td>
-		<td width="150px">총액</td>
-	</tr>
- 	<tr th:each="dto : ${sellData}" >
-			<td th:text="${dto.sellNo}"></td>
-			<td th:text="${dto.sCode}"></td>
-			<td th:text="${dto.sName}"></td>
-			<td th:text="${dto.sellDate}"></td>
-			<td th:text="${dto.pNum}"></td>
-			<td th:text="${dto.color}"></td>
-			<td th:text="${dto.pSize}"></td>
-			<td th:text="${dto.season}"></td>
-			<td th:text="${dto.pName}"></td>
-			<td th:text="${#numbers.formatInteger(dto.liPrice, 3, 'COMMA')}"></td>
-			<td th:text="${dto.discount}"></td>
-			<td th:text="${#numbers.formatInteger(dto.pPrice, 3, 'COMMA')}"></td>
-			<td th:text="${dto.cnt}"></td>
-			<td th:text="${#numbers.formatInteger(dto.totPrice, 3, 'COMMA')}"></td>
-	</tr> 
-</table>
-</div>
-<table class="table table-striped-columns" style="width:1200px;">
-	<tr th:each="dto2 : ${totData}">
-		<td align="left">통계</td>
-		<td width="112px" th:text="${#numbers.formatInteger(dto2.allTot, 3, 'COMMA')}"></td>
-	</tr>
-</table>
-</form>
-
+		</div>
+	</div>
+	<div class="tableBox mb-3">
+		<table class="table table-striped-columns">
+			<colgroup>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+				<col style=""/>
+			</colgroup>
+			<thead>
+				<tr class="table-dark">
+					<td>번호</td>
+					<td>매장코드</td>
+					<td>매장명</td>
+					<td>판매날짜</td>
+					<td>품번</td>
+					<td>컬러</td>
+					<td>사이즈</td>
+					<td>시즌</td>
+					<td>상품명</td>
+					<td>정가</td>
+					<td>할인율</td>
+					<td>상품판매가</td>
+					<td>판매수량</td>
+					<td>총액</td>
+				</tr>
+			</thead>
+			<tbody>
+			 	<tr th:each="dto : ${sellData}" >
+					<td th:text="${dto.sellNo}"></td>
+					<td th:text="${dto.sCode}"></td>
+					<td th:text="${dto.sName}"></td>
+					<td th:text="${dto.sellDate}"></td>
+					<td th:text="${dto.pNum}"></td>
+					<td th:text="${dto.color}"></td>
+					<td th:text="${dto.pSize}"></td>
+					<td th:text="${dto.season}"></td>
+					<td th:text="${dto.pName}"></td>
+					<td th:text="${#numbers.formatInteger(dto.liPrice, 3, 'COMMA')}"></td>
+					<td th:text="${dto.discount}"></td>
+					<td th:text="${#numbers.formatInteger(dto.pPrice, 3, 'COMMA')}"></td>
+					<td th:text="${dto.cnt}"></td>
+					<td th:text="${#numbers.formatInteger(dto.totPrice, 3, 'COMMA')}"></td>
+				</tr> 
+			</tbody>
+			<tfoot class="table-group-divider">
+				<tr class="tot table-secondary" th:each="dto2 : ${totData}">
+					<td>통계</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td th:text="${#numbers.formatInteger(dto2.allTot, 3, 'COMMA')}"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	</form>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>

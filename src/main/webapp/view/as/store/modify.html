@@ -2,6 +2,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(function() {
+		$("#ok").click(function() {
+			if (confirm('수정하시겠습니까?')) {
+				document.location.href = '/as/list';
+			} else {
+				return false;
+			}
+		});
+	});
+</script>
 </head>
 <body>
 as 매장수정
@@ -61,7 +73,7 @@ as 매장수정
 			
 			<tr>
 				<td colspan="7" align="right">
-					<input type="submit" value="수정"/>
+					<input type="submit" value="수정" id="ok"/>
 					<a href="/as/list">취소</a>
 				</td>
 			</tr>

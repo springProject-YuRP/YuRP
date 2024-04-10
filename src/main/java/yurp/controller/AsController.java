@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.annotation.Resource;
 import yurp.model.AsDTO;
 import yurp.model.AsMapper;
-import yurp.model.NoticeDTO;
 
 @Controller
 @RequestMapping("/as")
@@ -19,11 +18,12 @@ public class AsController {
 	@Resource
 	AsMapper mapper;
 	
-	//------본사
 	// 목록보기
 	@RequestMapping("list")
-	String list(Model mm) {
-		mm.addAttribute("aList",mapper.list());
+	String list(Model mm, AsDTO dto) {
+		mm.addAttribute("sNames", mapper.sNames());	
+		mm.addAttribute("aList",mapper.list(dto));
+		mm.addAttribute("aList", mapper.listPname(dto));
 		return "as/list";
 	}
 	
@@ -44,7 +44,7 @@ public class AsController {
 	@PostMapping("modify/{aNo}")
 	String modifyReg(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.modify(dto));
-		return "redirect:/";	//작성 후 상세보기로 이동
+		return "redirect:/as/list";	
 	}
 	
 	
@@ -75,13 +75,14 @@ public class AsController {
 	@PostMapping("store/modify/{aNo}")
 	String storeModifyReg(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.storeModify(dto));
-		return "redirect:/";	//작성 후 상세보기로 이동
+		return "redirect:/as/list";	//작성 후 상세보기로 이동
 	}
 	
 	
 	@RequestMapping("store/delete/{aNo}")
 	String storeDelete(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.delete(dto));
-		return "redirect:/";
+		return "redirect:/as/list";
 	}
+	
 }
