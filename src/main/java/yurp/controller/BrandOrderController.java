@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import yurp.model.BrandDTO;
 import yurp.model.BrandOrderDTO;
 import yurp.model.BrandOrderMapper;
+import yurp.model.Excel;
 import yurp.model.ProductDTO;
 import yurp.model.ProductMapper;
 
@@ -38,9 +40,7 @@ public class BrandOrderController {
 	@GetMapping("order/request")
 	void request(Model model, ProductDTO dto) {
 		List<BrandDTO> bdto = mapper.blist();
-		List<ProductDTO> pdto = pmapper.list(dto);
 		model.addAttribute("bdto",bdto);
-		model.addAttribute("pdto",pdto);
 	}
 	
 	@GetMapping("order/prodAdd")
@@ -49,21 +49,20 @@ public class BrandOrderController {
 		model.addAttribute("prod",prod);
 		
 	}
-	
-	@PostMapping("order/request")
-	void requestReg(Model model,@RequestParam String bCode) {
-		System.out.println(bCode);
-		/*
-		 * List<BrandDTO> bdto = mapper.blist(); List<ProductDTO> pdto =
-		 * pmapper.list(dto); model.addAttribute("bdto",bdto);
-		 * model.addAttribute("pdto",pdto);
-		 */
-	}
+
 	
 	@RequestMapping("order/detail")
 	String detail(Model model, @RequestParam String oStat) {
 		model.addAttribute("detailData",mapper.list());
 		return "brandOrder/order/detail";
+	}
+	
+	@PostMapping("excel")
+	void excel(HttpServletResponse response,ProductDTO dto) {
+		System.out.println("진입");
+		System.out.println(dto);
+		Excel ex = new Excel(response,dto);
+		
 	}
 	
 	

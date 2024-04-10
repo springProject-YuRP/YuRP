@@ -1,5 +1,6 @@
 package yurp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
@@ -36,3 +37,7 @@ public interface BrandOrderMapper {
 	@Delete("delete from brand where b_no = #{bNo}")
 	int delete(BrandDTO dto);
 }
+
+
+
+

@@ -6,25 +6,56 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function(){
+		console.log("실행")
 		$("#prodAdd").on("click",function(){
-
-			$.ajax({
-		        success:function(data){     
-		        	window.open("../order/prodAdd","_blank","width=1000,height=800"); 
-		        	
-		       	}
+			 
+		    window.open("../order/prodAdd","_blank","width=1000,height=800"); 
+		      
 				
-			});
+			
+			
 		});
 	})
+	var index = 1;
+	var cntTot = 0;
+	var priTot = 0;
+	
+	
+	function setList(arr){
+   
+	    for(var i=0; i<arr.length; i++){
+		
+			 var tr = $("<tr>")
+			 tr.append($("<td>").text(index));
+			 tr.append($("<td th:name='bCode' th:value='"+arr[i].bCode+"'>").text(arr[i].bCode));
+			 tr.append($("<td th:name='pNum'  th:value='"+arr[i].pNum+"'>").text(arr[i].pNum)); 
+			 tr.append($("<td name='bCode'>").text(arr[i].color));
+			 tr.append($("<td name='bCode'>").text(arr[i].pSize));
+			 tr.append($("<td name='bCode'>").text(arr[i].liPrice));
+			 tr.append($("<td name='bCode'>").text(arr[i].pName));
+			 tr.append($("<td name='bCode'>").text(arr[i].cnt)); 
+			 tr.append($("<td name='bCode'>").text(arr[i].reqCnt)); 
+		 	 tr.append($("<input type='hidden' name='iNo' th:value='"+arr[i].iNo+"'>").text(arr[i].iNo));
+		
+			 
+			 $(".prod").append(tr);
+			 cntTot+=parseInt(arr[i].reqCnt);
+			 priTot+=parseInt(arr[i].reqCnt * arr[i].liPrice);
+			 
+	    }
+		index++;
+		$("td[name='cntTot']").text(cntTot);
+		$("td[name='priTot']").text(priTot);
+	}
+
 
 </script>
 </head>
 <body>
 <h1>브랜드 발주 요청페이지</h1>
 <div>
-	<form action="">
-		<table border="" width="1000px">
+	<div>
+		<table border="" width="1200px">
 			<thead>
 			  <colgroup>
 			    <col width="20%"/>
@@ -33,6 +64,8 @@
 			     <col width="10%"/>
 			 
 			  </colgroup>
+			  </thead>
+			  <tbody>
 				<tr>
 					<th>브랜드</th>
 					<td >
@@ -52,27 +85,58 @@
 				</tr>
 				<tr>
 					<th>수량</th>
-					<td>0</td>
+					<td name="cntTot"></td>
 					<th>금액</th>
-					<td>0</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="4"></td>
-				</tr>
-				
-				<tr>
-					<td colspan="4">
-						<input type="button" value="상품추가" id="prodAdd"/>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="등록"/></td>
+					<td name="priTot"></td>
 				</tr>
 			</tbody>
 		</table>
-	</form>
+	</div>
+			
+<h1>추가한거 나옴</h1>
+
+	<div>	
+		<form action="../excel" method="post">
+			<table border="" width="1200px">
+				<thead>
+				  <colgroup>
+				    <col width="2%"/>
+				    <col width="13%"/>
+				    <col width="15%"/>
+				     <col width="10%"/>
+				     <col width="10%"/>
+				    <col width="10%"/>
+				    <col width="20%"/>
+				     <col width="10%"/>
+				     <col width="10%"/>
+				  </colgroup>
+				  <tr>
+						<td colspan="4">
+							<input type="button" value="상품추가" id="prodAdd"/>
+						</td>
+				  </tr>
+					
+				  <tr>
+					<th>no</th>
+					<th>브랜드</th> 
+					<th>품번</th>
+					<th>컬러</th>
+					<th>사이즈</th>
+					<th>가격</th>
+					<th>품명</th>
+					<th>창고재고</th>
+					<th>요청수량</th>
+				  </tr>
+				</thead>
+				<tbody class="prod">
+					
+				</tbody>
+				<tr>
+						<td><input type="submit" value="등록"/></td>
+					</tr>
+			</table>
+		</form>
+	</div>
 </div>
 </body>
 </html>
