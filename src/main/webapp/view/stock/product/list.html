@@ -96,7 +96,7 @@
 
 <section>
 
-	<form action="">
+	<form action="" method="post">
 <!-- 		<div class="hbar">
 			<table class="table table-striped-columns">
 				<tr>
@@ -202,6 +202,7 @@
 	
 	
 	<!-- 테이블은 이런식으로?  -->
+	<form action="" method="post">
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
@@ -221,7 +222,7 @@
 			</colgroup>
 			<thead>
 				<tr class="table-dark top">
-					<td></td>
+					<td><input class="form-check-input border-secondary-subtle" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
 					<td>시즌</td>
 					<td>브랜드</td>
 					<td>상품등급</td>
@@ -234,12 +235,11 @@
 					<td>할인율</td>
 					<td>판매가</td>
 					<td>수정</td>
-					<td>삭제</td>
 				</tr>
 			</thead>
 			<tbody>		
 			 	<tr th:each="dto : ${productData}" >
-			 		<td><input type="checkbox"/></td>
+			 		<td><input class="form-check-input border-secondary-subtle" type="checkbox" id="checkboxNoLabel" th:name="|prodArr[${dtoStat.index}].pNo|" th:value="${dto.pNo}" aria-label="..."></td>
 					<td th:text="${dto.season}"/>
 					<td th:text="${dto.bCode}"/>
 					<td th:text="${dto.grade}"/>
@@ -252,39 +252,24 @@
 					<td th:text="${dto.discount}"/>
 					<td th:text="|${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|"/>
 					<td><a th:href="@{|stock/product/modify/${dto.pNo}|}">수정</a></td>
-					<td><a th:href="@{|stock/product/delete/${dto.pNo}|}">삭제</a></td>
 				</tr> 
 				
 			</tbody>
-			<tfoot class="table-group-divider">
-				<tr class="tot table-secondary">
-					<td>통계</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>100 개</td>
-					<td>1,000,0000 원</td>
-					<td></td>
-					<td></td>
-				</tr>
-			</tfoot>
+
 		</table>
 	</div>
 	<div class="row justify-content-between align-items-center">
 		<div class="col-auto mb-3">				
-				<a href="product/insert" class="btn btn-warning">선택수정</a>	
-				<a href="product/insert" class="btn btn-danger">선택삭제</a>	
+				<!-- <a href="product/insert" class="btn btn-warning">선택수정</a>	 -->
+				<!-- <a href="product/insert" class="btn btn-danger">선택삭제</a>	 -->
+				<input type="submit" class="btn btn-warning" value="선택수정" formaction="product/modify">
+				<input type="submit" class="btn btn-danger" value="선택삭제" formaction="product/delete">
 		</div>
 		<div class="col-auto mb-3">				
 				<a href="product/insert" class="btn btn-primary">상품추가</a>	
 		</div>
 	</div>
+	</form>
 </section>
 <!-- 
 <section>
