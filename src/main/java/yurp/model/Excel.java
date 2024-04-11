@@ -1,6 +1,7 @@
 package yurp.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,9 +15,10 @@ import lombok.Data;
 
 public class Excel {
 
-	public Excel(HttpServletResponse response,ProductDTO dto) {
+	public Excel(HttpServletResponse response,ArrayList<ProductDTO> arr,int reqCnt) {
 		
-		System.out.println(dto);
+
+		System.out.println(arr);
 		  try {
 			Workbook wb = new XSSFWorkbook();
 	        Sheet sheet = wb.createSheet("발주");
@@ -45,14 +47,25 @@ public class Excel {
 	        
 
 	        // Body
-	        for (int i=0; i<3; i++) {
-	            row = sheet.createRow(rowNum++);
-	            cell = row.createCell(0);
-	            cell.setCellValue(i);
-	            cell = row.createCell(1);
-	            cell.setCellValue(i+"_name");
-	            cell = row.createCell(2);
-	            cell.setCellValue(i+"_title");
+	        for (int i=0; i<2; i++) {
+	        	ProductDTO product = arr.get(i);
+	        	 row = sheet.createRow(rowNum++);
+	        	 cell = row.createCell(0);
+	        	 cell.setCellValue(i + 1); 
+	        	 cell = row.createCell(1);
+	        	 cell.setCellValue(product.getBCode());
+	        	 cell = row.createCell(2);
+	        	 cell.setCellValue(product.getPNum());
+	        	 cell = row.createCell(3);
+	        	 cell.setCellValue(product.getColor());
+	        	 cell = row.createCell(4);
+	        	 cell.setCellValue(product.getPSize());
+	        	 cell = row.createCell(5);
+	        	 cell.setCellValue(product.getLiPrice());
+	        	 cell = row.createCell(6);
+	        	 cell.setCellValue(product.getPName());
+	        	 cell = row.createCell(7);
+	        	 cell.setCellValue(reqCnt);
 	        }
 
 	        // 컨텐츠 타입과 파일명 지정

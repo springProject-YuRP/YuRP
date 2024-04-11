@@ -27,6 +27,16 @@ public interface ProductMapper {
 	List<ProductDTO> prodList(ProductDTO dto);
 	
 	
+	@Select({
+		"<script>"
+		, "<foreach collection='arr' item='prod' separator=';' index='i'>"
+			, "select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, i.cnt, i.i_no, li_price "
+			, "from product p "
+			, "join inventory i "
+			, "where i.i_no = #{prod.iNo}"
+		, "</foreach>"
+		,"</script>"})
+	ArrayList<ProductDTO> excelArr(ArrayList<ProductDTO> arr);
 
 	
 
