@@ -117,6 +117,43 @@ public interface SellMapper {
 			+ "	</trim>"
 			+ "</where> "
 			+ "</script> ")
-	List<SellDTO> storeAdd(SellDTO dto);
+	List<SellDTO> sNameSearch(SellDTO dto);
+	
+	
+	
+	@Select("<script> "
+			+ "select "
+			+ "p_no, "
+			+ "p_num, "
+			+ "p_name, "
+			+ "grade, "
+			+ "season, "
+			+ "color, "
+			+ "p_size, "
+			+ "li_price, "
+			+ "discount, "
+			+ "p_price "
+			+ "from product"
+			+ "<where>"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='pNum != null and pNum != \"\"' > "
+			+ "			p_num like concat('%',#{pNum},'%') and"
+			+ "		</if> "
+			+ "		<if test='pName != null and Name!= \"\"' > "
+			+ "			p_name like concat('%',#{Name},'%') and"
+			+ "		</if> "
+			
+			+ "		<if test='season != null and season!= \"\"' > "
+			+ "			season like concat('%',#{season},'%') and"
+			+ "		</if> "
+			
+			+ "		<if test='grade != null and grade != \"\"' > "
+			+ "			grade like concat('%',#{grade},'%') "
+			+ "		</if> "
+			
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> ")
+	List<SellDTO> pNumSearch(SellDTO dto);
 	
 }
