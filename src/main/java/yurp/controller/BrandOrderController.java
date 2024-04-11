@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
+import yurp.model.ArrayDTO;
 import yurp.model.BrandDTO;
 import yurp.model.BrandOrderDTO;
 import yurp.model.BrandOrderMapper;
@@ -58,10 +59,9 @@ public class BrandOrderController {
 	}
 	
 	@PostMapping("excel")
-	void excel(HttpServletResponse response,ProductDTO dto) {
-		System.out.println("진입");
-		System.out.println(dto);
-		Excel ex = new Excel(response,dto);
+	void excel(HttpServletResponse response,ArrayDTO arr,@RequestParam int reqCnt) {
+		System.out.println(reqCnt);
+		Excel ex = new Excel(response,pmapper.excelArr(arr.getArr()),reqCnt);
 		
 	}
 	

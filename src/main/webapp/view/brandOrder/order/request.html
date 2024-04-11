@@ -27,15 +27,26 @@
 		
 			 var tr = $("<tr>")
 			 tr.append($("<td>").text(index));
-			 tr.append($("<td th:name='bCode' th:value='"+arr[i].bCode+"'>").text(arr[i].bCode));
-			 tr.append($("<td th:name='pNum'  th:value='"+arr[i].pNum+"'>").text(arr[i].pNum)); 
-			 tr.append($("<td name='bCode'>").text(arr[i].color));
-			 tr.append($("<td name='bCode'>").text(arr[i].pSize));
-			 tr.append($("<td name='bCode'>").text(arr[i].liPrice));
-			 tr.append($("<td name='bCode'>").text(arr[i].pName));
-			 tr.append($("<td name='bCode'>").text(arr[i].cnt)); 
-			 tr.append($("<td name='bCode'>").text(arr[i].reqCnt)); 
-		 	 tr.append($("<input type='hidden' name='iNo' th:value='"+arr[i].iNo+"'>").text(arr[i].iNo));
+			 tr.append($("<td>").text(arr[i].bCode));
+			 tr.append($("<td>").text(arr[i].pNum)); 
+			 tr.append($("<td>").text(arr[i].color));
+			 tr.append($("<td>").text(arr[i].pSize));
+			 tr.append($("<td>").text(arr[i].liPrice));
+			 tr.append($("<td>").text(arr[i].pName));
+			 tr.append($("<td>").text(arr[i].cnt)); 
+			 tr.append($("<td>").text(arr[i].reqCnt)); 
+			 
+		 	 tr.append($("<input type='hidden' name='arr["+i+"].iNo' value='"+arr[i].iNo+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].bCode' value='"+arr[i].bCode+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].pNum' value='"+arr[i].pNum+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].color' value='"+arr[i].color+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].pSize' value='"+arr[i].pSize+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].liPrice' value='"+arr[i].liPrice+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].pName' value='"+arr[i].pName+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+i+"].cnt' value='"+arr[i].cnt+"'>"));
+			 tr.append($("<input type='hidden' name='reqCnt' value='"+arr[i].reqCnt+"'>"));
+		 	 
+		 		
 		
 			 
 			 $(".prod").append(tr);
