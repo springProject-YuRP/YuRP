@@ -96,7 +96,7 @@ $(function(){
 				<div class="col-md-auto">			
 					<div class="input-group">
 						<span class="input-group-text">브랜드</span>
-						<select class="form-select" name="">
+						<select class="form-select" name="bName">
 	                        <option value="" selected disabled hidden>브랜드 선택</option>
 	                        <option value="brand1">브랜드1</option>
 	                        <option value="brand2">브랜드2</option>
@@ -106,31 +106,13 @@ $(function(){
 				</div>
 				<div class="col-md-auto">				
 					<div class="input-group">
-						<span class="input-group-text">OOO</span>
+						<span class="input-group-text">전표번호</span>
 						<input type="text" class="form-control" name="" placeholder="OOO 입력"/>
 						<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
 						</svg></button>
 					</div>
 				</div>
-				<div class="col-md-auto">				
-					<div class="input-group">
-						<span class="input-group-text">OOO</span>
-						<input type="text" class="form-control" name="" placeholder="OOO 입력"/>
-						<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-						</svg></button>
-					</div>
-				</div>						
-				<div class="col-md-auto">				
-					<div class="input-group">
-						<span class="input-group-text">OOO</span>
-						<input type="text" class="form-control" name="" placeholder="OOO 입력"/>
-						<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-						  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-						</svg></button>
-					</div>
-				</div>						
 			</div>
 			<div class="row justify-content-end align-items-center">
 				<div class="col-auto mb-3">				
@@ -147,6 +129,7 @@ $(function(){
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
+				<col style="width: 5%;"/>
 				<col style="min-width:80px; width: 20%;"/>
 				<col style=""/>
 				<col style=""/>
@@ -155,6 +138,7 @@ $(function(){
 			</colgroup>
 			<thead>
 				<tr class="table-dark top">
+					<td>번호</td>
 					<td>발주일</td>
 					<td>브랜드</td>
 					<td>전표번호</td>
@@ -164,34 +148,26 @@ $(function(){
 			</thead>
 			<tbody>		
 			 	<tr th:each="list : ${listData}">
-				<td th:text="${#dates.format(list.regDate, 'yyyy/M/dd')}"></td>
-				<td th:text="${list.bCode}"></td>
-				<td><a th:text="${list.oStat}" class="list"/></td>
-				<td th:text="${list.totCnt}"></td>
-				<td th:text="${list.totPrice}"></td>
-			</tr>
+			 		<td th:text="${listStat.index+1}"></td>
+					<td th:text="${#dates.format(list.regDate, 'yyyy/M/dd')}"></td>
+					<td th:text="${list.bCode}"></td>
+					<td><a th:text="${list.oStat}" class="list"/></td>
+					<td th:text="${list.totCnt}"></td>
+					<td th:text="${list.totPrice}"></td>
+				</tr>
 				
 			</tbody>
-			<tfoot class="table-group-divider">
-				<tr class="tot table-secondary">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</tfoot>
+			
 		</table>
 	</div>
 </section>
-<h1>발주 리스트 상세보기</h1>
 
 <section>
 
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
-				<col style="min-width:80px; width: 5%;"/>
+				<col style="width: 5%;"/>
 				<col style="width: 15%;"/>
 				<col style=""/>
 				<col style="width: 10%;"/>
@@ -213,19 +189,10 @@ $(function(){
 				</tr>
 			</thead>
 			<tbody id="detail">		
+				<!-- 상세정보 -->
+				
 			</tbody>
-			<tfoot class="table-group-divider">
-				<tr class="tot table-secondary" >
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</tfoot>
+
 		</table>
 	</div>
 	

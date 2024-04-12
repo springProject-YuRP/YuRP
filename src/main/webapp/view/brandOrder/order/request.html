@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,11 +77,11 @@
 	var brand = '';
 	
 	function setList(arr){
-   		console.log(arr.length);
+
 	    for(var i=0; i<arr.length; i++){
 		
 			 var tr = $("<tr>")
-			 tr.append($("<td>").text(index));
+			 tr.append($("<td>").text(i+1));
 			 tr.append($("<td>").text(arr[i].bCode));
 			 tr.append($("<td>").text(arr[i].pNum)); 
 			 tr.append($("<td>").text(arr[i].color));
@@ -111,7 +111,7 @@
 			 tr.append($("<input type='hidden' name='ordersArr["+i+"].liPrice' value='"+arr[i].liPrice+"'>"));
 			 tr.append($("<input type='hidden' name='ordersArr["+i+"].pName' value='"+arr[i].pName+"'>"));
 			 tr.append($("<input type='hidden' name='ordersArr["+i+"].cnt' value='"+arr[i].cnt+"'>"));
-			/*  tr.append($("<input type='hidden' name='ordersArr["+i+"].oStat' value='"+stat+"'>")); */
+			 /* tr.append($("<input type='hidden' name='ordersArr["+i+"].oStat' value='"+stat+"'>")); */
 			 tr.append($("<input type='hidden' name='ordersArr["+i+"].reqCnt' value='"+arr[i].reqCnt+"'>"));
 		 	 
 
@@ -123,10 +123,12 @@
 			 brand = arr[i].bCode;
 			 
 	    }
-		index++;
-		$("td[name='cntTot']").text(cntTot);
-		$("td[name='priTot']").text(priTot);
-		$("td[name='brand']").text(brand);
+		console.log(cntTot);
+		console.log(priTot);
+		console.log(brand);
+		$("span[name='cntTot']").text(cntTot);
+		$("span[name='priTot']").text(priTot);
+		$("span[name='brand']").text(brand);
 		$("input[name='bCode']").val(brand);
 		$("input[name='totCnt']").val(cntTot);
 		$("input[name='totPrice']").val(priTot);
@@ -139,51 +141,44 @@
 <h1>브랜드 발주 요청페이지</h1>
 
 <section>
-
 	<form action="../insert" method="post">
 
 		<div class="searchBox container mb-3 border-bottom">
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">브랜드</span>
-						<td name="brand" class="form-control"></td>
+						<span name="brand" class="form-control"></span>
 						<input type="hidden" th:name="bCode"/>
 					</div>
 				</div>
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">전표번호</span>
-						<td th:text="${stat}" class="form-control"></td>
+						<span class="form-control" id="oStat" th:name="oStat" th:value="|${#dates.format(#dates.createNow(), 'yyyyMMdd')}-| + ${stat}">[[${stat}]]</span>
+							<!-- 난중에 정리해야징 -->
 						<input type="hidden" id="oStat" th:name="oStat" th:value="|${#dates.format(#dates.createNow(), 'yyyyMMdd')}-| + ${stat}"/>
 					</div>
 				</div>						
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">발주날짜</span>
-						<td th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"  class="form-control"></td>
+						<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"  class="form-control"></span>
 					</div>
 				</div>	
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">수량</span>
-						<td name="cntTot"  class="form-control"></td>
+						<span name="cntTot"  class="form-control"></span>
 						<input type="hidden" th:name="totCnt"/>
 					</div>
 				</div>		
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">금액</span>
-							<td name="priTot" class="form-control"></td>
+							<span name="priTot" class="form-control"></span>
 						<input type="hidden" th:name="totPrice"/>
 					</div>
 				</div>						
-			</div>
-			<div class="row justify-content-end align-items-center">
-				<div class="col-auto mb-3">				
-					<div class="input-group">
-						<input class="btn btn-dark" type="submit" value="검색"/>
-					</div>	
-				</div>
 			</div>
 		</div>
 	
