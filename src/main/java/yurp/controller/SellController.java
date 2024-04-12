@@ -23,10 +23,16 @@ public class SellController {
 		return "stock/sales/list";
 	}
 	
-	@RequestMapping("sales/storeAdd")
-	String storeAdd(Model mm, SellDTO dto) {
-		mm.addAttribute("storeAdd", sellmapper.storeAdd(dto));
-		return "stock/sales/storeAdd";
+	@RequestMapping("sales/sNameSearch")
+	String sNameSearch(Model mm, SellDTO dto) {
+		mm.addAttribute("sNameSearch", sellmapper.sNameSearch(dto));
+		return "stock/sales/sNameSearch";
+	}
+	
+	@RequestMapping("sales/pNumSearch")
+	String pNumSearch(Model mm, SellDTO dto) {
+		mm.addAttribute("pNumSearch", sellmapper.pNumSearch(dto));
+		return "stock/sales/pNumSearch";
 	}
 	
 	

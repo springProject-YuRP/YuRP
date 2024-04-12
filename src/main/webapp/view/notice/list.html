@@ -2,34 +2,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+<style>	
+	section {
+		width: 100%;
+		max-width: 1200px;
+		margin: auto;
+	}
+	.scr{
+		border: 1px solid #fff;
+		width: 1200px;
+		height: 450px;
+		overflow-y: scroll;
+	}
+	.tableBox {
+		width: 100%;
+		max-height: 600px;
+		overflow: auto;
+	}
+	.table > thead{
+		position: sticky;
+		top:0;
+	}
+	
+	.table > tfoot{
+		position: sticky;
+		bottom: -1px;
+	}
+
+</style>
 <body>
-공지 리스트
+<h1>공지 리스트</h1>
 
 <table border="">
-	<thead>
-	  <colgroup>
-	    <col width="20%" />
-	    <col width="40%" />
-	    <col width="40%" />
-	  </colgroup>
-	  
-		<tr>
-			<th>NO</th>
-			<th>제목</th>
-			<th>작성일</th>
-		</tr>
-		
-		<tr th:each="dto : ${nList}">
-			<td th:text="${dtoStat.size - dtoStat.index}"></td><!-- 숫자 역순으로 뽑기 위해! -->
-			<td><a th:href="@{|detail/${dto.nNo}|}" th:text="${dto.title}"></a></td>
-			<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
-		</tr>
-		<tr>
-			<td colspan="3" align="right">
-				<a href="/notice/insert">글쓰기</a>
-				<a href="/">뒤로가기</a>
-			</td>
 <!-- 			<td colspan="3" align="right" th:if="${dto.sCode} == 'admin'">
 				<a href="/notice/insert">글쓰기</a>
 				<a href="/">뒤로가기</a>
@@ -40,5 +46,42 @@
 		</tr>
 	</thead>
 </table>
+
+<section>
+	<!-- 테이블은 이런식으로?  -->
+	<div class="tableBox mb-3">
+		<table class="table table-striped-columns">
+			<colgroup>
+			    <col width="20%" />
+			    <col width="40%" />
+			    <col width="40%" />
+			</colgroup>
+			<thead>
+				<tr class="table-dark top">
+					<th>NO</th>
+					<th>제목</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<tbody>		
+				<tr th:each="dto : ${nList}">
+					<td th:text="${dtoStat.size - dtoStat.index}"></td><!-- 숫자 역순으로 뽑기 위해! -->
+					<td><a th:href="@{|detail/${dto.nNo}|}" th:text="${dto.title}"></a></td>
+					<td th:text="${#dates.format(dto.regDate, 'yyyy-MM-dd')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row justify-content-end align-items-center">
+		<div class="col-auto mb-3">				
+			<a href="/notice/insert" class="btn btn-dark">글쓰기</a>	
+			<a href="/" class="btn btn-dark">뒤로가기</a>	
+		</div>
+	</div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

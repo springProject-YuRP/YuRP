@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 @Mapper
-public interface SellMapper {
+public interface InoutMapper {
 
 	@Select("<script>"
 			+ "select "
@@ -56,7 +56,7 @@ public interface SellMapper {
 			+ "</where> "
 			+ "</script> "
 			 )
-	List<SellDTO> list(SellDTO dto);
+	List<InoutDTO> list(InoutDTO dto);
 	
 	@Select("<script> "
 			+ "select "
@@ -91,69 +91,8 @@ public interface SellMapper {
 			+ "	</trim>"
 			+ "</where> "
 			+ "</script> ")
-	List<SellDTO> tot(SellDTO dto);
+	List<InoutDTO> tot(InoutDTO dto);
 	
-	@Select("<script> "
-			+ "select "
-			+ "s_no, "
-			+ "s_code, "
-			+ "s_name, "
-			+ "manager, "
-			+ "addr "
-			+ "from store"
-			+ "<where>"
-			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
-			+ "		<if test='sCode != null and sCode != \"\"' > "
-			+ "			s_code like concat('%',#{sCode},'%') and"
-			+ "		</if> "
-			+ "		<if test='manager != null and manager != \"\"' > "
-			+ "			manager like concat('%',#{manager},'%') and"
-			+ "		</if> "
-			
-			+ "		<if test='sName != null and sName != \"\"' > "
-			+ "			s_name like concat('%',#{sName},'%') "
-			+ "		</if> "
-			
-			+ "	</trim>"
-			+ "</where> "
-			+ "</script> ")
-	List<SellDTO> sNameSearch(SellDTO dto);
-	
-	
-	
-	@Select("<script> "
-			+ "select "
-			+ "p_no, "
-			+ "p_num, "
-			+ "p_name, "
-			+ "grade, "
-			+ "season, "
-			+ "color, "
-			+ "p_size, "
-			+ "li_price, "
-			+ "discount, "
-			+ "p_price "
-			+ "from product"
-			+ "<where>"
-			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
-			+ "		<if test='pNum != null and pNum != \"\"' > "
-			+ "			p_num like concat('%',#{pNum},'%') and"
-			+ "		</if> "
-			+ "		<if test='pName != null and Name!= \"\"' > "
-			+ "			p_name like concat('%',#{Name},'%') and"
-			+ "		</if> "
-			
-			+ "		<if test='season != null and season!= \"\"' > "
-			+ "			season like concat('%',#{season},'%') and"
-			+ "		</if> "
-			
-			+ "		<if test='grade != null and grade != \"\"' > "
-			+ "			grade like concat('%',#{grade},'%') "
-			+ "		</if> "
-			
-			+ "	</trim>"
-			+ "</where> "
-			+ "</script> ")
-	List<SellDTO> pNumSearch(SellDTO dto);
+
 	
 }

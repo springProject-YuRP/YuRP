@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<title>Insert title here</title>
+<title>매장 검색</title>
 </head>
 <style>
  	section {
@@ -34,8 +34,24 @@
 	}
 
 </style>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(function(){
+	$("#data tr").on("click",function(){
+		var row = $(this);
+		var rowData = row.find('td').map(function(){
+			return $(this).text();
+		}).get()[2];
+		console.log(rowData);
+		window.opener.document.getElementById("storeNm").value = rowData;
+		window.close();
+	});
+	
+
+})
+</script>
 <body>
-<h1>storeAdd</h1>
+<h1>sNameSearch</h1>
 <section>
 <form action="">
 	<div class="searchBox container mb-3 border-bottom">
@@ -68,7 +84,7 @@
 		</div>
 	</div>
 	<div class="tableBox mb-3">
-		<table class="table table-striped-columns">
+		<table id="data" class="table table-striped-columns">
 			<colgroup>
 				<col style=""/>
 				<col style=""/>
@@ -87,10 +103,10 @@
 				</tr>
 			</thead>
 			<tbody>
-			 	<tr th:each="dto : ${storeAdd}" >
+			 	<tr th:each="dto : ${sNameSearch}" >
 					<td th:text="${dto.sNo}"></td>
 					<td th:text="${dto.sCode}"></td>
-					<td th:text="${dto.sName}"></td>
+					<td th:value="${dto.sName}" th:text="${dto.sName}"></td>
 					<td th:text="${dto.manager}"></td>
 					<td th:text="${dto.addr}"></td>
 				</tr> 
