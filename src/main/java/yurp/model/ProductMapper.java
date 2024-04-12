@@ -14,11 +14,25 @@ public interface ProductMapper {
 
 	@Select(
 			"<script>"
-			+ "select * from product "
+			+ "select p.*, b.b_name "
+			+ "from product as p join brand as b on p.b_code = b.b_code "
 			+ "<where> "
+			+ "<trim prefix=' ' suffixOverrides = 'and | or'>"
+			+ "<if test='season != null'> "
+			+ "season=#{season} and"
+			+ "</if>"
+			+ "<if test='bCode != null'> "
+			+ "p.b_code=#{bCode} and"
+			+ "</if>"
+			+ "<if test='pName != null and pName != \"\"'> "
+			+ "p_name like concat('%',#{pName},'%') and"
+			+ "</if>"
 			+ "<if test='pCode != null and pCode != \"\"'> "
 			+ "p_code like concat('%',#{pCode},'%') "
 			+ "</if>"
+
+			+ "</trim>"
+
 			+ "</where>"
 			+ "</script>")
 	List<ProductDTO> list(ProductDTO dto);
@@ -31,6 +45,11 @@ public interface ProductMapper {
 	
 	@Select("select * from brand")
 	List<BrandDTO> brandList();
+	
+	@Select("select season from product "
+			+ "group by season "
+			+ "order by season desc")
+	List<String> seasonList();
 	
 	
 	@Insert({
@@ -91,21 +110,21 @@ public interface ProductMapper {
 	List<ProductDTO> modList(ArrayList<ProductDTO> arr);
 	
 
-//	@Update({
-//		" <script> "
-//		, "<foreach collection='arr' item='prod' separator=',' index='i'> "
-//		,"update product set "
-//		//, "<if test='prod.pNo != null'> "
-//		, "b_code=#{prod.bCode}, season=#{prod.season}, grade=#{prod.grade}, p_name=#{prod.pName}, p_num=#{prod.pNum}, color=#{prod.color}, p_size=#{prod.pSize}, p_code=#{prod.pCode}, li_price=#{prod.liPrice}, discount=#{prod.discount}, p_price=#{prod.pPrice} "
-//		//, "</if> "
-//		//, "<where> "
-//		, "where "
-//		, "p_no = #{prod.pNo}"
-//		//, "</where> "
-//		, "</foreach> "
-//		, "</script> "
-//	})
-//	int modReg(ArrayList<ProductDTO> arr);
+	@Update({
+		" <script> "
+		, "<foreach collection='arr' item='prod' separator=' ' index='i'> "
+		,"update product set "
+		//, "<if test='prod.pNo != null'> "
+		, "b_code=#{prod.bCode}, season=#{prod.season}, grade=#{prod.grade}, p_name=#{prod.pName}, p_num=#{prod.pNum}, color=#{prod.color}, p_size=#{prod.pSize}, p_code=#{prod.pCode}, li_price=#{prod.liPrice}, discount=#{prod.discount}, p_price=#{prod.pPrice} "
+		//, "</if> "
+		//, "<where> "
+		, "where "
+		, "p_no = #{prod.pNo}; "
+		//, "</where> "
+		, "</foreach> "
+		, "</script> "
+	})
+	int modReg(ArrayList<ProductDTO> arr);
 	
 
 }
