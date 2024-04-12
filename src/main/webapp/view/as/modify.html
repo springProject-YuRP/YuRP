@@ -6,10 +6,22 @@
 <script>
 	$(function() {
 		$("#ok").click(function() {
-			if (confirm('as처리하시겠습니까?')) {
-				document.location.href = '/as/list';
-			} else {
+			var essential = document.getElementsByClassName("essential");
+			var ee = true;
+			
+			for (var i = 0; i < essential.length; i++) {
+				if(!essential[i].value){
+					ee = false;
+					break;
+				}
+			}
+			
+			if (!ee) {
+				alert('모두 작성해주세요.')
 				return false;
+			}else{
+				confirm('as처리하시겠습니까?')
+				return true;
 			}
 		});
 	});
@@ -32,6 +44,8 @@
 		  
 		  
 	  		<tr>
+	  			<th>No</th>
+				<td th:text="${dto.aNo}"></td>
 				<th>매장코드</th>
 				<td th:text="${dto.sCode}"></td>
 				<th>매장명</th>
@@ -55,9 +69,11 @@
 				<select name="asProg">
 					<option value="수선중">수선중</option>
 					<option value="수선후발송">수선후발송</option>
-					<option value="수선불가">수선불가</option>
+					<option value="수선불가반송">수선불가반송</option>
 				</select>
 			</td>
+			<th>처리일</th>
+			<td th:text="${#dates.format(dto.fixDate, 'yyyy-MM-dd')}"></td>
 		</tr>
 			<tr>
 				<th>고객성함</th>
@@ -81,11 +97,11 @@
 			</tr>
 			<tr>
 				<th>처리내용</th>
-				<td colspan="7"><textarea rows="5" cols="50" name="resCon"></textarea></td>
+				<td colspan="7"><textarea class="essential" rows="5" cols="50" name="resCon"></textarea></td>
 			</tr>
 			<tr>
 				<th>수선비</th>
-				<td colspan="7"><input type="number" name="asPrice"/></td>
+				<td colspan="7"><input class="essential" type="number" name="asPrice"/></td>
 			</tr>
 
 			<tr>

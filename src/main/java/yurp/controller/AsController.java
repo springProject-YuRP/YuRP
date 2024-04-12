@@ -34,7 +34,7 @@ public class AsController {
 		return "as/detail";
 	}
 	
-	// 수정
+	// 접수처리하기
 	@GetMapping("modify/{aNo}")
 	String modifyForm(Model mm, AsDTO dto) {
 		mm.addAttribute("dto",mapper.detail(dto.getANo()));
@@ -44,7 +44,7 @@ public class AsController {
 	@PostMapping("modify/{aNo}")
 	String modifyReg(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.modify(dto));
-		return "redirect:/as/list";	
+		return "redirect:/as/detail/{aNo}";	
 	}
 	
 	
@@ -82,7 +82,7 @@ public class AsController {
 	@PostMapping("store/modify/{aNo}")
 	String storeModifyReg(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.storeModify(dto));
-		return "redirect:/as/list";	//작성 후 상세보기로 이동
+		return "redirect:/as/detail/{aNo}";	//작성 후 상세보기로 이동
 	}
 	
 	
