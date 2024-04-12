@@ -8,7 +8,8 @@ public class DTOs {
 
 	ArrayList<ProductDTO> productArr;
 	
-	ArrayList<OrdersDTO> ordersArr;
 
 	ArrayList<ProductDTO> prodArr;
+	
+	ArrayList<StoreOrderDTO> rtArr;
 }

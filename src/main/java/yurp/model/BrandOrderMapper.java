@@ -13,28 +13,41 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface BrandOrderMapper {
 	
-	@Select("select * from orders")
+	@Select("<script>"
+			+ "select * from orders "
+			+ "<where>"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='start != null and start != \"\"' > "
+			+ "			reg_date >= #{start} and"
+			+ "		</if> "
+			+ "		<if test='end != null and end != \"\"' > "
+			+ "			 #{end} >= reg_date and"
+			+ "		</if> "
+			+ "		<if test='start != null and start != \"\" and end != null and end != \"\"' > "
+			+ "			reg_date BETWEEN #{start} and #{end}"
+			+ "		</if> "
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> ")
 	List<OrdersDTO> list();
 	
+	@Select("select p.p_num ,p.color ,p.p_size,o_stat,p.p_name,o.b_code, o.req_cnt from ordetail o "
+			+ "join product p "
+			+ "where o_stat = #{oStat} GROUP BY p.p_num")
+	List<OrdersDTO> detail(String oStat);
 
 	@Insert("insert into orders "
 			+ "(o_stat,tot_price,tot_cnt,excel,reg_date,b_code) values "
 			+ "(#{oStat},#{totPrice},#{totCnt},'엑셀경로',sysdate(),#{bCode})")
 	int oinsert(OrdersDTO dto);
 	
-//	@Insert({"<script>"
-//			+ "<foreach collection='ordersArr' item='order' separator=';' index='i'>"
-//				+ "insert into ordetail(req_cnt,b_code,p_code,o_stat) "
-//				+ "values (#{order.reqCnt},#{order.bCode},"
-//				+"(select p_code from product "
-//				+"where p_num = #{order.pNum} and color = #{order.color} and p_size = #{order.pSize}),'20240412-0001')"
-//			+ "</foreach>"
-//			+"</script>"})
 	@Insert({"<script>"
 			+ "<foreach collection='ordersArr' item='order' separator=';' index='i'>"
 				+ "insert into ordetail(req_cnt,b_code,p_code,o_stat) "
 				+ "values (#{order.reqCnt},#{order.bCode},"
-				+"#{order.pCode},'20240412-0002')"
+				+"(select p_code from product "
+				+"where p_num = #{order.pNum} and color = #{order.color} and p_size = #{order.pSize}),"
+				+ "(select max(o_stat) from orders where reg_date = CURDATE()))"
 			+ "</foreach>"
 			+"</script>"})
 	int detailInsert(ArrayList<OrdersDTO> ordersArr);

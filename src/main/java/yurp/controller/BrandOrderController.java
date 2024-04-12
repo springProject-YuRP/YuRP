@@ -44,14 +44,19 @@ public class BrandOrderController {
 	
 	@GetMapping("order/request")
 	void request(Model model) {
-		String [] arr = mapper.maxStat().split("-");
-		int stat = Integer.parseInt(arr[1])+1;
 		String st = "";
-		if(stat> 9){
-			st = "00"+stat;
-		}else{
-			st = "000"+stat;
+		if(mapper.maxStat() != null) {
+			String [] arr =  mapper.maxStat().split("-");
+			int stat = Integer.parseInt(arr[1])+1;
+			if(stat> 9){
+				st = "00"+stat;
+			}else{
+				st = "000"+stat;
+			}
+		}else {
+			st = "0001";
 		}
+		
 		model.addAttribute("stat",st);
 	}
 	
@@ -64,7 +69,7 @@ public class BrandOrderController {
 	
 	@RequestMapping("order/detail")
 	String detail(Model model, @RequestParam String oStat) {
-		model.addAttribute("detailData",mapper.list());
+		model.addAttribute("detailData",mapper.detail(oStat));
 		return "brandOrder/order/detail";
 	}
 	
@@ -73,14 +78,8 @@ public class BrandOrderController {
 		
 		ServletContext servletContext = request.getServletContext();
 //		Excel ex = new Excel(servletContext,pmapper.excelArr(arr.getArr()),reqCnt,dto.getOStat());
-//		//mapper.oinsert(dto);
-//		System.out.println(arr.getOrdersArr());
-		
-		for (int i = 0; i < reqCnt.length; i++) {
-			ArrayList<OrdersDTO> aa = arr.getOrdersArr();
-			System.out.println(Arrays.toString(aa.toArray()));
-		}
-//		mapper.detailInsert(arr.getOrdersArr());
+		mapper.oinsert(dto);
+		mapper.detailInsert(arr.getOrdersArr());
 		return "redirect:/brandOrder/order/list";
 	}
 	

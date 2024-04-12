@@ -38,67 +38,33 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-	$(function(){
-		
-	        
-	 	$("#btn").on("click",function(){
-	 		  $("input[type='number'][class='reqCnt']").each(function(i){
-	                var cnt = $(this).val();
-	                var cntName = $(this).attr('name');
-	                var tr = $(this).closest('tr');
-	               	if(cnt!=""){
-	                 	$(this).val(cnt)
-	                 	var arr = []; // 배열 초기화
-				        $("tbody tr").each(function(i){
-				            var tr = $(this);
-				            var obj = {
-				                iNo: tr.find("input[id='iNo']").val(),
-				                bCode: tr.find("td[id='bCode']").text(),
-				                pNum: tr.find("td[id='pNum']").text(),
-				                color: tr.find("td[id='color']").text(),
-				                pSize: tr.find("td[id='pSize']").text(),
-				                liPrice: tr.find("td[id='liPrice']").text(),
-				                pName: tr.find("td[id='pName']").text(),
-				                cnt: tr.find("td[id='cnt']").text(),
-				                reqCnt: tr.find("input[id='reqCnt']").val() 
-				            };
-				            arr.push(obj);
-				        });
-	                 /* 	var arr = new Array(); //담아서 요청페이지에 보낼꺼야
-	                 	var obj = new Object(); 
-	                
-	              
-	                 	obj.iNo  = tr.find("input[id='iNo']").val();
-	                 	obj.bCode  = tr.find("td[id='bCode']").text();
-	                 	obj.pNum  = tr.find("td[id='pNum']").text();
-	                 	obj.color  = tr.find("td[id='color']").text();
-	                 	obj.pSize  = tr.find("td[id='pSize']").text();
-	                 	obj.liPrice  = tr.find("td[id='liPrice']").text();
-	                 	obj.pName  = tr.find("td[id='pName']").text();
-	                 	obj.cnt  = tr.find("td[id='cnt']").text();
-	                 	obj.reqCnt  = tr.find("input[id='reqCnt']").val(); 
-	         
-	                 	 */
-	                  /* 	arr.push(obj); */
-	                 	
-	                 	window.opener.setList(arr); //부모 함수 가져옴
-	                 	window.close();
-	                 
-	                 
-	              
-	                    tr.find('input[type="hidden"][id="iNo"]').each(function() {
-	                        var hiddenValue = $(this).val();
-	                        console.log($(this).attr('name') + " - " + hiddenValue);
-	                      
-	                    });
-	                
-	               	}  
-
-	           }); 
-	 		 
-		}); 
-	 
-	})
+$(function(){
+    $("#btn").on("click",function(){
+        var arr = []; // 배열 초기화
+        // 각 행에서 값 가져와서 배열에 추가
+        $("tbody tr").each(function(i){
+            var tr = $(this);
+            var reqCntValue = tr.find("input[id='reqCnt']").val();
+            if (reqCntValue !== "") {
+                var obj = {
+                    iNo: tr.find("input[id='iNo']").val(),
+                    bCode: tr.find("td[id='bCode']").text(),
+                    pNum: tr.find("td[id='pNum']").text(),
+                    color: tr.find("td[id='color']").text(),
+                    pSize: tr.find("td[id='pSize']").text(),
+                    liPrice: tr.find("td[id='liPrice']").text(),
+                    pName: tr.find("td[id='pName']").text(),
+                    cnt: tr.find("td[id='cnt']").text(),
+                    reqCnt: reqCntValue 
+                };
+                arr.push(obj);
+            }
+        });
+        // 부모 함수 호출
+        window.opener.setList(arr);
+        window.close();
+    });
+});
 
 </script>
 <body>
