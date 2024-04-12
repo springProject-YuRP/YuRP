@@ -3,7 +3,7 @@ package yurp.model;
 import lombok.Data;
 
 @Data
-public class SellDTO {
+public class InoutDTO {
 	int sellNo, liPrice, discount, pPrice, cnt, totPrice,allTot,sNo,
 	grade,pNo;
 	String start,end,pCode, pNum, sCode, sName, addr, 

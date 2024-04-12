@@ -23,7 +23,7 @@ public class AsController {
 	String list(Model mm, AsDTO dto) {
 		mm.addAttribute("sNames", mapper.sNames());	
 		mm.addAttribute("aList",mapper.list(dto));
-		mm.addAttribute("aList", mapper.listPname(dto));
+		mm.addAttribute("aList", mapper.listPname(dto));	// 검색기능
 		return "as/list";
 	}
 	
@@ -56,13 +56,20 @@ public class AsController {
 		return "as/store/detail";
 	}
 	
+	// 등록
 	@GetMapping("store/insert")
-	void storeInsertFrom() {}	// insert.html 열기
+	String storeInsertFrom(Model mm, AsDTO dto) { // insert.html 열기
+		//System.out.println(mapper.asNumSelect());
+		// asNum 자동 반영
+		dto.setAsNum(mapper.asNumSelect(dto));
+		mm.addAttribute("dto", dto);
+		return "as/store/insert";
+	}	
 
 	@PostMapping("store/insert")
 	String storeInsert(Model mm, AsDTO dto) {
 		mm.addAttribute("dto", mapper.storeInsert(dto));
-		return "redirect:/";
+		return "redirect:/as/list";
 	}
 	
 	// 수정
@@ -85,4 +92,18 @@ public class AsController {
 		return "redirect:/as/list";
 	}
 	
+	
+	//-------검색기능
+	// 매장검색
+	@RequestMapping("store/sCodeSearch")
+	String sCodeSearch(Model mm, AsDTO dto) {
+		mm.addAttribute("sCodeSearch", mapper.sCodeSearch(dto));
+		return "as/store/sCodeSearch";
+	}
+	// 상품 검색
+	@RequestMapping("store/pCodeSearch")
+	String pCodeSearch(Model mm, AsDTO dto) {
+		mm.addAttribute("pCodeSearch", mapper.pCodeSearch(dto));
+		return "as/store/pCodeSearch";
+	}
 }

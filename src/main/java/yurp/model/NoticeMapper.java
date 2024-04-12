@@ -14,6 +14,9 @@ public interface NoticeMapper {
 
 	@Select("select * from notice")
 	List<NoticeDTO> list();
+
+//	@Select("select * from NOTICE order by n_no desc limit #{startPage}, #{endPage}")
+//	List<NoticeDTO> list();
 	
 	@Select("select * from notice where n_no = #{nNo}")
 	NoticeDTO detail(int nNo);

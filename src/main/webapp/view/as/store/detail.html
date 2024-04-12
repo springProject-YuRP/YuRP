@@ -39,7 +39,7 @@ as 디테일
 			<th>매장명</th>
 			<td th:text="${dto.sName}"></td>
 			<th>접수일</th>
-			<td th:text="${#dates.format(dto.regDate, 'yyyy/M/dd')}"></td>
+			<td th:text="${#dates.format(dto.regDate, 'yyyy-MM-dd')}"></td>
 		</tr>
 		<tr>
 			<th>접수번호</th>
@@ -63,7 +63,7 @@ as 디테일
 		</tr>
 		<tr>
 			<th>구매날짜</th>
-			<td th:text="${#dates.format(dto.purDate, 'yyyy/M/dd')}" colspan="7"></td>
+			<td th:text="${#dates.format(dto.purDate, 'yyyy-M-dd')}" colspan="7"></td>
 		</tr>
 		<tr>
 			<th>의뢰내용</th>
