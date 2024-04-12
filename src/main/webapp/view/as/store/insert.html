@@ -3,22 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-	$(function() {
-		$("#chkS").click(function() {
-			if (confirm('as처리하시겠습니까?')) {
-				document.location.href = '/';
-			} else {
+<script>	
+	$(function(){
+		
+		$('#sCodeSearch').on("click",function(e){
+			
+			e.preventDefault();
+			let popUrl = "../store/sCodeSearch";
+			let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes";
+			
+			window.open(popUrl,"매장",popOption);
+			
+		});
+		
+		$('#pCodeSearch').on("click",function(e){
+			
+			e.preventDefault();
+			let popUrl = "../store/pCodeSearch";
+			let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes";
+			
+			window.open(popUrl,"품번",popOption);
+			
+		});
+		
+		
+		$("#ok").click(function() {
+			var essential = document.getElementsByTagName("input").value;
+			
+			if (!essential) {
+				alert('모두 작성해주세요.')
 				return false;
+			}else{
+				return true;
 			}
 		});
-	});
+	})
 </script>
 </head>
 <body>
-as 매장추가
-
-<form action="" method="post">
+<h1>as 매장추가</h1>
+<form action="" method="post" th:object="${dto}">
 	<table border="">
 		<thead>
 		  <colgroup>
@@ -28,44 +52,44 @@ as 매장추가
 		   
 			<tr>
 				<th>접수번호</th>
-				<td><input type="text" name="asNum" value=""/>자동으로 가져와야함
+				<td><input id="asNuber" type="text" name="asNum" th:field="${dto.asNum}" readonly /></td>
 			</tr>
 			<tr>
 				<th>매장코드</th>
-				<td><input type="text" name="sCode"/><button id="chkS">조회</button></td>
+				<td><input class="essential" id="storeCode" type="text" name="sCode"/><button id="sCodeSearch">조회</button></td>
 			</tr>
 			<tr>
 				<th>매장명</th>
-				<td><input type="text" name="sName"/></td>
+				<td><input class="essential" id="storeName" type="text" name="sName"/></td>
 			</tr>
 			<tr>
 				<th>고객성함</th>
-				<td><input type="text" name="asName"/></td>
+				<td><input class="essential" id="asName" type="text" name="asName"/></td>
 			</tr>
 			<tr>
 				<th>고객연락처</th>
-				<td><input type="text" name="asTel"/></td>
+				<td><input class="essential" id="asTel" type="text" name="asTel"/></td>
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td><input type="text" name="pCode"/><button id="chkP">조회</button></td>
+				<td><input class="essential" id="productCode" type="text" name="pCode"/><button id="pCodeSearch">조회</button></td>
 			</tr>
 			<tr>
 				<th>상품명</th>
-				<td><input type="text" name="pName"/></td>
+				<td><input class="essential" id="productName" type="text" name="pName"/></td>
 			</tr>
 			<tr>
 				<th>구매날짜</th>
-				<td><input type="date" name="purDate"/></td>
+				<td><input class="essential" id="purDate" type="date" name="purDate"/></td>
 			</tr>
 			<tr>
 				<th>의뢰내용</th>
-				<td><textarea rows="5" cols="50" name="asNote"></textarea></td>
+				<td><textarea class="essential" id="asNote" rows="5" cols="50" name="asNote"></textarea></td>
 			</tr>
 			
 			<tr>
 				<td colspan="2" align="right">
-					<input type="submit" value="접수"/>
+					<input type="submit" value="접수" id="ok"/>
 					<a href="/as/list">취소</a>
 				</td>
 			</tr>
