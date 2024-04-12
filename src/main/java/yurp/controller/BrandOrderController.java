@@ -1,6 +1,7 @@
 package yurp.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import yurp.model.ArrayDTO;
 import yurp.model.BrandDTO;
-import yurp.model.BrandOrderDTO;
+import yurp.model.OrdersDTO;
 import yurp.model.BrandOrderMapper;
+import yurp.model.DTOs;
 import yurp.model.Excel;
 import yurp.model.ProductDTO;
 import yurp.model.ProductMapper;
@@ -39,16 +43,22 @@ public class BrandOrderController {
 	}
 	
 	@GetMapping("order/request")
-	void request(Model model, ProductDTO dto) {
-		List<BrandDTO> bdto = mapper.blist();
-		model.addAttribute("bdto",bdto);
+	void request(Model model) {
+		String [] arr = mapper.maxStat().split("-");
+		int stat = Integer.parseInt(arr[1])+1;
+		String st = "";
+		if(stat> 9){
+			st = "00"+stat;
+		}else{
+			st = "000"+stat;
+		}
+		model.addAttribute("stat",st);
 	}
 	
 	@GetMapping("order/prodAdd")
 	void prodAdd(Model model, ProductDTO dto) {
-		List<ProductDTO> prod = pmapper.prodList(dto);
-		model.addAttribute("prod",prod);
-		
+		model.addAttribute("bdto",mapper.blist());
+		model.addAttribute("prod",pmapper.prodList(dto));
 	}
 
 	
@@ -58,11 +68,20 @@ public class BrandOrderController {
 		return "brandOrder/order/detail";
 	}
 	
-	@PostMapping("excel")
-	void excel(HttpServletResponse response,ArrayDTO arr,@RequestParam int reqCnt) {
-		System.out.println(reqCnt);
-		Excel ex = new Excel(response,pmapper.excelArr(arr.getArr()),reqCnt);
+	@PostMapping("insert")
+	String excel(HttpServletRequest request,ArrayDTO arr,@RequestParam int []reqCnt, OrdersDTO dto) {
 		
+		ServletContext servletContext = request.getServletContext();
+//		Excel ex = new Excel(servletContext,pmapper.excelArr(arr.getArr()),reqCnt,dto.getOStat());
+//		//mapper.oinsert(dto);
+//		System.out.println(arr.getOrdersArr());
+		
+		for (int i = 0; i < reqCnt.length; i++) {
+			ArrayList<OrdersDTO> aa = arr.getOrdersArr();
+			System.out.println(Arrays.toString(aa.toArray()));
+		}
+//		mapper.detailInsert(arr.getOrdersArr());
+		return "redirect:/brandOrder/order/list";
 	}
 	
 	

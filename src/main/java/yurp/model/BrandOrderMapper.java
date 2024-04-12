@@ -14,10 +14,33 @@ import org.apache.ibatis.annotations.Update;
 public interface BrandOrderMapper {
 	
 	@Select("select * from orders")
-	List<BrandOrderDTO> list();
+	List<OrdersDTO> list();
 	
-	@Select("select * from orders")
-	List<BrandOrderDTO> detail();
+
+	@Insert("insert into orders "
+			+ "(o_stat,tot_price,tot_cnt,excel,reg_date,b_code) values "
+			+ "(#{oStat},#{totPrice},#{totCnt},'엑셀경로',sysdate(),#{bCode})")
+	int oinsert(OrdersDTO dto);
+	
+//	@Insert({"<script>"
+//			+ "<foreach collection='ordersArr' item='order' separator=';' index='i'>"
+//				+ "insert into ordetail(req_cnt,b_code,p_code,o_stat) "
+//				+ "values (#{order.reqCnt},#{order.bCode},"
+//				+"(select p_code from product "
+//				+"where p_num = #{order.pNum} and color = #{order.color} and p_size = #{order.pSize}),'20240412-0001')"
+//			+ "</foreach>"
+//			+"</script>"})
+	@Insert({"<script>"
+			+ "<foreach collection='ordersArr' item='order' separator=';' index='i'>"
+				+ "insert into ordetail(req_cnt,b_code,p_code,o_stat) "
+				+ "values (#{order.reqCnt},#{order.bCode},"
+				+"#{order.pCode},'20240412-0002')"
+			+ "</foreach>"
+			+"</script>"})
+	int detailInsert(ArrayList<OrdersDTO> ordersArr);
+	
+	@Select("select max(o_stat) from orders where reg_date = CURDATE()")
+	String maxStat();
 	
 	@Select("select * from brand")
 	List<BrandDTO> blist();

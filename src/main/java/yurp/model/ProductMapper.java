@@ -20,11 +20,27 @@ public interface ProductMapper {
 			+ "</script>")
 	List<ProductDTO> list(ArrayList<ProductDTO> arr);
 	
-	@Select("select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
+//	@Select("select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
+//			+ "from product p "
+//			+ "join inventory i "
+//			+ "where i.p_code = p.p_code and i.s_code  = 'admin' and p.b_code  = '117901'")
+	@Select("<script>"
+			+ "select "
+			+"p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
 			+ "from product p "
 			+ "join inventory i "
-			+ "where i.p_code = p.p_code and i.s_code  = 'admin'")
+			+ "<where>"
+			+ " i.p_code = p.p_code and i.s_code  = 'admin'"
+			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='bCode != null' > "
+			+ "			and p.b_code = #{bCode} and"
+			+ "		</if> "
+			+ "	</trim>"
+			+ "</where> "
+			+ "</script> "
+			 )
 	List<ProductDTO> prodList(ProductDTO dto);
+	
 	
 	
 	@Select({
