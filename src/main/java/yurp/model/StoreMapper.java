@@ -47,4 +47,19 @@ public interface StoreMapper {
 	int modify(StoreDTO dto);
 	
 	
+//	@Select({
+//		"<script>"
+//		,"select * from store "
+//		, "<where> "
+//		, "<if test='code != null and pw != null'>"
+//		, "s_code=#{code} and s_pw=#{pw} "
+//		, "</if>"
+//		, "</where>"
+//		,"</script>"
+//	})
+//	StoreDTO login(String code, String pw);
+	
+	@Select("select * from store where s_code=#{sCode} and s_pw=#{sPw} ")
+	StoreDTO login(StoreDTO dto);
+	
 }
