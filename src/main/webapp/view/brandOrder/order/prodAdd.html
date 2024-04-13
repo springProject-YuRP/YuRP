@@ -64,6 +64,13 @@ $(function(){
         window.opener.setList(arr);
         window.close();
     });
+    
+    $(document).ready(function(){
+        // bCode 값을 가져와서 hidden input 필드에 설정
+        var bCode = $("#bCodeValue").text();
+        $("#bCodeInput").val(bCode);
+    });
+
 });
 
 </script>
@@ -74,25 +81,17 @@ $(function(){
 <form action="">
 	<div class="searchBox container mb-3 border-bottom">
 		<div class="row g-3 align-items-center">		
-			<div class="col-md-auto">				
-				<div class="input-group">
-					<span class="input-group-text">브랜드</span>
-					<select name="bCode" id="select">
-						<th:block  th:each="bdto : ${bdto}">
-							<option th:value="${bdto.bCode}">[[${bdto.bName}]]</option>
-						</th:block>
-					</select>
-					<!-- <input type="text" class="form-control" name="sName" placeholder="매장명 입력"/> -->
-				
+			<div class="col-md-auto">			
+					<div class="input-group">
+						<span class="input-group-text">브랜드</span>
+						<span th:text="${bCode}" id="bCodeValue" class="form-control"></span>
+						<input type="hidden" id="bCodeInput" name="bCode" th:value=${bCode}/>
+					</div>
 				</div>
-			</div>
 			<div class="col-md-auto">				
 				<div class="input-group">
 					<span class="input-group-text">품번</span>
-					<input type="text" class="form-control" name="pNum" placeholder="품번 입력"/>
-					<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-					</svg></button>
+					<input type="text" class="form-control" name="pNumChk" placeholder="품번 입력"/>
 				</div>
 			</div>											
 		</div>
@@ -104,6 +103,7 @@ $(function(){
 			</div>
 		</div>
 	</div>
+</form>
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
@@ -148,7 +148,6 @@ $(function(){
 			</tbody>
 		</table>
 	</div>
-	</form>
 </section>
 <div>
 	<div class="row justify-content-between align-items-center">

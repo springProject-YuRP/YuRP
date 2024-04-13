@@ -37,8 +37,9 @@ public class BrandOrderController {
 	ProductMapper pmapper;
 	
 	@RequestMapping("order/list")
-	String list(Model model) {
-		model.addAttribute("listData", mapper.list());
+	String list(Model model,OrdersDTO dto) {
+		model.addAttribute("listData", mapper.list(dto));
+		model.addAttribute("blist", mapper.blist());
 		return "brandOrder/order/list";
 	}
 	
@@ -56,14 +57,15 @@ public class BrandOrderController {
 		}else {
 			st = "0001";
 		}
-		
+		model.addAttribute("blist",mapper.blist());
 		model.addAttribute("stat",st);
 	}
 	
 	@GetMapping("order/prodAdd")
 	void prodAdd(Model model, ProductDTO dto) {
-		model.addAttribute("bdto",mapper.blist());
+		model.addAttribute("blist",mapper.blist());
 		model.addAttribute("prod",pmapper.prodList(dto));
+		model.addAttribute("bCode",dto.getBCode());
 	}
 
 	

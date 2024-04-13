@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class StoreOrderDTO {
-	String rStat,outStore,inStore,proceseRes,sCode,pCode,bCode,pNum,color,pName,pSize,sName;
+	String rStat,outStore,inStore,proceseRes,sCode,pCode,bCode,pNum,color,pName,pSize,sName,start,end;
 	Integer statCnt ,statPrice,reqCnt;
 	Date requestDate,proceseDate;
 

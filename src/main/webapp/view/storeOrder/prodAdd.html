@@ -40,8 +40,9 @@
 <script>
 $(function(){
     $("#btn").on("click",function(){
-        var arr = []; // 배열 초기화
-        // 각 행에서 값 가져와서 배열에 추가
+    
+    	var arr = [];
+    	
         $("tbody tr").each(function(i){
             var tr = $(this);
             var reqCntValue = tr.find("input[id='reqCnt']").val();
@@ -74,27 +75,21 @@ $(function(){
 <form action="">
 	<div class="searchBox container mb-3 border-bottom">
 		<div class="row g-3 align-items-center">		
-			<div class="col-md-auto">				
-				<div class="input-group">
-					<span class="input-group-text">브랜드</span>
-					<select name="bCode" id="select">
-						<th:block  th:each="bdto : ${bdto}">
-							<option th:value="${bdto.bCode}">[[${bdto.bName}]]</option>
-						</th:block>
-					</select>
-					<!-- <input type="text" class="form-control" name="sName" placeholder="매장명 입력"/> -->
-				
+			<div class="col-md-auto">	
+					<div class="input-group">
+						<span class="input-group-text">브랜드</span>
+						<select class="form-select" name="bCode">
+	                        <option value="" selected disabled hidden>브랜드 선택</option>
+	                        <option th:each="brand : ${blist}" th:text="|${brand.bName} [${brand.bCode}]|" th:value="${brand.bCode}"></option>
+	                    </select>
+					</div>			
 				</div>
-			</div>
 			<div class="col-md-auto">				
 				<div class="input-group">
 					<span class="input-group-text">품번</span>
-					<input type="text" class="form-control" name="pNum" placeholder="품번 입력"/>
-					<button class="btn btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-					  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-					</svg></button>
+					<input type="text" class="form-control" name="pNumChk" placeholder="품번 입력"/>
 				</div>
-			</div>											
+			</div>										
 		</div>
 		<div class="row justify-content-end align-items-center">
 			<div class="col-auto mb-3">				

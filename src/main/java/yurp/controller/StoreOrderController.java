@@ -29,8 +29,8 @@ public class StoreOrderController {
 	ProductMapper pmapper;
 	
 	@GetMapping("list")
-	String list(Model model) {
-		model.addAttribute("listData",mapper.list());
+	String list(Model model,StoreOrderDTO dto) {
+		model.addAttribute("listData",mapper.list(dto));
 		return "storeOrder/list";
 	}
 	
@@ -64,7 +64,7 @@ public class StoreOrderController {
 	
 	@GetMapping("prodAdd")
 	void prodAdd(Model model, ProductDTO dto) {
-		model.addAttribute("bdto",mapper.blist());
+		model.addAttribute("blist",mapper.blist());
 		model.addAttribute("prod",pmapper.prodList(dto));
 	}
 	
