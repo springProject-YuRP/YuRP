@@ -38,14 +38,15 @@
 			<td th:text="${#dates.format(dto.regDate, 'yyyy-MM-dd')}"></td>
 		</tr>
 		<tr>
-			<th>파일</th>
-			<td colspan="5">
-				<img th:src="@{|/notice/image/${dto.nNo}|}"/>
+			<th>본문</th>
+			<td colspan="5" th:if="${dto.file} != ''">
+				<img th:src="@{/view/notice/fff/}+${dto.file}" style="padding:10%;" width="500px"/>
+				<p align="center">[[${dto.content}]]</p>
 			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td th:text="${dto.content}" colspan="5"></td>
+			
+			<td colspan="5" th:if="${dto.file} == ''">
+				<p align="center">[[${dto.content}]]</p>
+			</td>
 		</tr>
 		
 		<tr>
