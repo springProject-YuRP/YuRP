@@ -17,6 +17,12 @@ public interface BrandOrderMapper {
 			+ "select * from orders "
 			+ "<where>"
 			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+			+ "		<if test='bCode != null and bCode != \"\"' > "
+			+ "			b_code = #{bCode} and"
+			+ "		</if> "
+			+ "		<if test='oStat != null and oStat != \"\"' > "
+			+ "		o_stat like concat('%',#{oStat},'%') and"
+			+ "		</if> "
 			+ "		<if test='start != null and start != \"\"' > "
 			+ "			reg_date >= #{start} and"
 			+ "		</if> "
@@ -29,11 +35,12 @@ public interface BrandOrderMapper {
 			+ "	</trim>"
 			+ "</where> "
 			+ "</script> ")
-	List<OrdersDTO> list();
+	List<OrdersDTO> list(OrdersDTO dto);
 	
-	@Select("select p.p_num ,p.color ,p.p_size,o_stat,p.p_name,o.b_code, o.req_cnt from ordetail o "
-			+ "join product p "
-			+ "where o_stat = #{oStat} GROUP BY p.p_num")
+	@Select("select p.p_num ,p.color ,p.p_size,o_stat,p.p_name,o.b_code, o.req_cnt,i.cnt from ordetail o "
+			+ "join product p on o.p_code = p.p_code "
+			+ "JOIN inventory i on i.p_code = o.p_code "
+			+ "where o_stat = #{oStat} and i.s_code = 'admin'")
 	List<OrdersDTO> detail(String oStat);
 
 	@Insert("insert into orders "

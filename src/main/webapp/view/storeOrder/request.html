@@ -61,14 +61,12 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function(){
-		
+		var prodChk = 0;
 		$("#prodAdd").on("click",function(){
 			
+		     window.open("prodAdd", "_blank", "width=1000,height=600");
+	
 		
-			window.open("prodAdd","_blank","width=1000,height=600"); 
-		
-		   
-		   	
 		});
 	})
 	var index = 1;
@@ -76,12 +74,15 @@
 	var priTot = 0;
 	var brand = '';
 	
+	
+
 	function setList(arr){
+		prodChk = $(".prod").children().length;
 
 	    for(var i=0; i<arr.length; i++){
-		
+			
 			 var tr = $("<tr>")
-			 tr.append($("<td>").text(i+1));
+			 tr.append($("<td>").text(i+1+prodChk));
 			 tr.append($("<td>").text(arr[i].bCode));
 			 tr.append($("<td>").text(arr[i].pNum)); 
 			 tr.append($("<td>").text(arr[i].color));
@@ -93,15 +94,15 @@
 			
 			 
 			 
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].iNo' value='"+arr[i].iNo+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].bCode' value='"+arr[i].bCode+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].pNum' value='"+arr[i].pNum+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].color' value='"+arr[i].color+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].pSize' value='"+arr[i].pSize+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].liPrice' value='"+arr[i].liPrice+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].pName' value='"+arr[i].pName+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].cnt' value='"+arr[i].cnt+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+i+"].reqCnt' value='"+arr[i].reqCnt+"'>")); 
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].iNo' value='"+arr[i].iNo+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].bCode' value='"+arr[i].bCode+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].pNum' value='"+arr[i].pNum+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].color' value='"+arr[i].color+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].pSize' value='"+arr[i].pSize+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].liPrice' value='"+arr[i].liPrice+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].pName' value='"+arr[i].pName+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].cnt' value='"+arr[i].cnt+"'>"));
+			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].reqCnt' value='"+arr[i].reqCnt+"'>")); 
 		 	 
 
 		
@@ -110,6 +111,7 @@
 			 cntTot+=parseInt(arr[i].reqCnt);
 			 priTot+=parseInt(arr[i].reqCnt * arr[i].liPrice);
 			 brand = arr[i].bCode;
+		
 			 
 	    }
 		console.log(cntTot);
@@ -121,6 +123,8 @@
 		$("input[name='bCode']").val(brand);
 		$("input[name='statCnt']").val(cntTot);
 		$("input[name='statPrice']").val(priTot);
+		
+		
 	}
 
 
@@ -133,14 +137,6 @@
 	<form action="insert" method="post">
 		<div class="searchBox container mb-3 border-bottom">
 			<div class="row g-3 align-items-center">	
-				<div class="col-md-auto">				
-					<div class="input-group">
-						<span class="input-group-text">요청매장</span>
-						<select name="sName" id="select">
-							<option th:each="sname : ${slist}" th:value="${sname.sName}">[[${sname.sName}]]</option>	
-						</select>
-					</div>
-				</div>
 				<div class="col-md-auto">				
 					<div class="input-group">
 						<span class="input-group-text">전표번호</span>

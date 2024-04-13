@@ -62,13 +62,16 @@
 <script>
 	$(function(){
 		
+		
+		$("#modify").on('click',function(){
+			alert("aaa")
+		});
+		
 		$("#prodAdd").on("click",function(){
-			
-		
-			window.open("../order/prodAdd","_blank","width=1000,height=600"); 
-		
-		   
-		   	
+			var bCode = $("select[name='bCode'] :selected").val();
+			window.open("../order/prodAdd?bCode="+bCode,"_blank","width=1000,height=600"); 
+			console.log($("select[name='bCode'] :selected").val());
+			   	
 		});
 	})
 	var index = 1;
@@ -77,11 +80,12 @@
 	var brand = '';
 	
 	function setList(arr){
-
+		prodChk = $(".prod").children().length;
 	    for(var i=0; i<arr.length; i++){
 		
 			 var tr = $("<tr>")
-			 tr.append($("<td>").text(i+1));
+			 tr.append($("<td>").append($("<input type='checkbox'>")));
+			 tr.append($("<td>").text(i+1+prodChk));
 			 tr.append($("<td>").text(arr[i].bCode));
 			 tr.append($("<td>").text(arr[i].pNum)); 
 			 tr.append($("<td>").text(arr[i].color));
@@ -89,30 +93,31 @@
 			 tr.append($("<td>").text(arr[i].liPrice));
 			 tr.append($("<td>").text(arr[i].pName));
 			 tr.append($("<td>").text(arr[i].cnt)); 
-			 tr.append($("<td>").text(arr[i].reqCnt)); 
+			 tr.append($("<td>").text(arr[i].reqCnt));
+			
 			 
 			 
-		 	 tr.append($("<input type='hidden' name='arr["+i+"].iNo' value='"+arr[i].iNo+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].bCode' value='"+arr[i].bCode+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].pNum' value='"+arr[i].pNum+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].color' value='"+arr[i].color+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].pSize' value='"+arr[i].pSize+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].liPrice' value='"+arr[i].liPrice+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].pName' value='"+arr[i].pName+"'>"));
-			 tr.append($("<input type='hidden' name='arr["+i+"].cnt' value='"+arr[i].cnt+"'>"));
+		 	 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].iNo' value='"+arr[i].iNo+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].bCode' value='"+arr[i].bCode+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].pNum' value='"+arr[i].pNum+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].color' value='"+arr[i].color+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].pSize' value='"+arr[i].pSize+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].liPrice' value='"+arr[i].liPrice+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].pName' value='"+arr[i].pName+"'>"));
+			 tr.append($("<input type='hidden' name='arr["+parseInt(i+prodChk)+"].cnt' value='"+arr[i].cnt+"'>"));
 			 tr.append($("<input type='hidden' name='reqCnt' value='"+arr[i].reqCnt+"'>"));
 			 
 			 
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].iNo' value='"+arr[i].iNo+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].bCode' value='"+arr[i].bCode+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].pNum' value='"+arr[i].pNum+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].color' value='"+arr[i].color+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].pSize' value='"+arr[i].pSize+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].liPrice' value='"+arr[i].liPrice+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].pName' value='"+arr[i].pName+"'>"));
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].cnt' value='"+arr[i].cnt+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].iNo' value='"+arr[i].iNo+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].bCode' value='"+arr[i].bCode+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].pNum' value='"+arr[i].pNum+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].color' value='"+arr[i].color+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].pSize' value='"+arr[i].pSize+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].liPrice' value='"+arr[i].liPrice+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].pName' value='"+arr[i].pName+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].cnt' value='"+arr[i].cnt+"'>"));
 			 /* tr.append($("<input type='hidden' name='ordersArr["+i+"].oStat' value='"+stat+"'>")); */
-			 tr.append($("<input type='hidden' name='ordersArr["+i+"].reqCnt' value='"+arr[i].reqCnt+"'>"));
+			 tr.append($("<input type='hidden' name='ordersArr["+parseInt(i+prodChk)+"].reqCnt' value='"+arr[i].reqCnt+"'>"));
 		 	 
 
 		
@@ -144,12 +149,14 @@
 	<form action="../insert" method="post">
 
 		<div class="searchBox container mb-3 border-bottom">
-				<div class="col-md-auto">				
+				<div class="col-md-auto">	
 					<div class="input-group">
 						<span class="input-group-text">브랜드</span>
-						<span name="brand" class="form-control"></span>
-						<input type="hidden" th:name="bCode"/>
-					</div>
+						<select class="form-select" name="bCode">
+	                        <option value="" selected disabled hidden>브랜드 선택</option>
+	                        <option th:each="brand : ${blist}" th:text="|${brand.bName} [${brand.bCode}]|" th:value="${brand.bCode}"></option>
+	                    </select>
+					</div>			
 				</div>
 				<div class="col-md-auto">				
 					<div class="input-group">
@@ -187,6 +194,7 @@
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
 			<colgroup>
+				<col style="width: 5%;"/>
 				<col style="min-width:80px; width: 5%;"/>
 				<col style=""/>
 				<col style=""/>
@@ -204,6 +212,7 @@
 			<thead>
 		
 				<tr class="table-dark top">
+					<td></td>
 					<td>no</td>
 					<td>브랜드</td> 
 					<td>품번</td>
@@ -222,14 +231,14 @@
 	</div>
 	<div class="row justify-content-between align-items-center">
 		<div class="col-auto mb-3">				
-				<a href="product/insert" class="btn btn-warning">선택수정</a>	
-				<a href="product/insert" class="btn btn-danger">선택삭제</a>	
+			<a id="modify" class="btn btn-warning">선택수정</a>	
+			<a href="product/insert" class="btn btn-danger">선택삭제</a>	
 		</div>
 		<div class="col-auto mb-3">				
-				<a id="prodAdd" class="btn btn-primary">상품추가</a>	
+			<a id="prodAdd" class="btn btn-primary">상품추가</a>	
 		</div>
 		<div class="col-auto mb-3">				
-				<input type="submit" value="메일보내기"/>
+			<input type="submit" value="메일보내기"/>
 		</div>
 		
 	</div>
