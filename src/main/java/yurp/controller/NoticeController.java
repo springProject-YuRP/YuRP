@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import yurp.model.NoticeDTO;
 import yurp.model.NoticeMapper;
 
@@ -24,16 +25,20 @@ public class NoticeController {
 	@Resource
 	NoticeMapper mapper;
 	
-	// 목록보기
+	//**공지사항 목록*/
 	@RequestMapping("list")
-	String list(Model mm) {
+	String list(Model mm, HttpServletRequest request) {
 //		List<NoticeDTO> nList = mapper.list();
-//		System.out.println("nList : "+nList);
+//		System.out.println("nList : "+nList);		
 		mm.addAttribute("nList", mapper.list());
+		
+		HttpSession session = request.getSession();
+		session.getAttribute("loginStore");
+		
 		return "notice/list";
 	}
 	
-	// 상세보기
+	//**공지사항 상세보기*/
 	@RequestMapping("detail/{nNo}")
 	String detail(Model mm, @PathVariable int nNo, NoticeDTO dto) {
 		mm.addAttribute("dto", mapper.detail(nNo));
@@ -41,7 +46,8 @@ public class NoticeController {
 		return "notice/detail";
 	}
 
-	// 추가 - insert.html 열기
+	//insert.html 열기
+	//**공지사항 추가*/
 	@GetMapping("insert")
 	void insertFrom() {}
 	
@@ -50,7 +56,7 @@ public class NoticeController {
 	
 		String file = "";
 		for (MultipartFile mpf : mr.getFiles("upFile")) {
-			file += mpf.getOriginalFilename()+", ";
+			file += mpf.getOriginalFilename();
 //			System.out.println(mpf.getOriginalFilename()+"-----------");
 //			System.out.println(mpf.getName());	
 //			System.out.println(mpf.getContentType());
@@ -66,7 +72,7 @@ public class NoticeController {
 	}
 	
 
-	// 수정
+	//**공지사항 수정*/
 	@GetMapping("modify/{nNo}")
 	String modifyForm(Model mm, NoticeDTO dto) {
 		mm.addAttribute("dto",mapper.detail(dto.getNNo()));
@@ -78,7 +84,7 @@ public class NoticeController {
 		
 		String file = "";
 		for (MultipartFile mpf : mr.getFiles("upFile")) {
-			file += mpf.getOriginalFilename()+", ";			
+			file += mpf.getOriginalFilename();			
 			fileUpload(mpf, request);
 		}
 		mm.addAttribute("file",file);
@@ -87,7 +93,7 @@ public class NoticeController {
 		return "redirect:/notice/list";		//작성 후 상세보기로 이동
 	}
 	
-	// 삭제
+	//**공지사항 삭제*/
 	@GetMapping("delete/{nNo}")
 	String delete(Model mm, NoticeDTO dto) {
 		mm.addAttribute("dto",  mapper.delete(dto));
@@ -96,7 +102,7 @@ public class NoticeController {
 
 	
 	
-	// 파일 업로드
+	//**공지사항 사진추가*/
 	void fileUpload(MultipartFile mf, HttpServletRequest request) {
         
 		int pos = mf.getContentType().indexOf("/");
@@ -116,8 +122,8 @@ public class NoticeController {
 				try {
 					// 파일 저장 경로
 					String path = request.getServletContext().getRealPath("fff")+"\\";
-					//path = "C:\\GYUHWI\\workspace\\YuRP\\src\\main\\webapp\\view\\notice\\fff\\";
-					path = "workspace\\YuRP\\src\\main\\webapp\\view\\notice\\fff\\";
+					path = "C:\\GYUHWI\\workspace\\YuRP\\src\\main\\webapp\\view\\notice\\fff\\";
+					//path = "workspace\\YuRP\\src\\main\\webapp\\view\\notice\\fff\\";
 					
 					// 업로드된 파일을 지정된 경로에 저장
 					FileOutputStream fos = new FileOutputStream(path+mf.getOriginalFilename());

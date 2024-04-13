@@ -18,7 +18,7 @@ public class AsController {
 	@Resource
 	AsMapper mapper;
 	
-	// 목록보기
+	/**as 목록*/
 	@RequestMapping("list")
 	String list(Model mm, AsDTO dto) {
 		mm.addAttribute("sNames", mapper.sNames());	
@@ -27,14 +27,14 @@ public class AsController {
 		return "as/list";
 	}
 	
-	// 상세보기
+	/**as 상세내역:본사*/
 	@RequestMapping("detail/{aNo}")
 	String detail(Model mm, @PathVariable int aNo) {
 		mm.addAttribute("dto", mapper.detail(aNo));
 		return "as/detail";
 	}
 	
-	// 접수처리하기
+	/**as 접수처리*/
 	@GetMapping("modify/{aNo}")
 	String modifyForm(Model mm, AsDTO dto) {
 		mm.addAttribute("dto",mapper.detail(dto.getANo()));
@@ -48,15 +48,15 @@ public class AsController {
 	}
 	
 	
-	
-	//------매장	
+	//-----매장
+	/**as 상세보기:매장*/
 	@RequestMapping("store/detail/{aNo}")
 	String storeDetail(Model mm, @PathVariable int aNo) {
 		mm.addAttribute("dto", mapper.detail(aNo));
 		return "as/store/detail";
 	}
 	
-	// 등록
+	/**as 접수:매장*/
 	@GetMapping("store/insert")
 	String storeInsertFrom(Model mm, AsDTO dto) { // insert.html 열기
 		//System.out.println(mapper.asNumSelect());
@@ -72,7 +72,7 @@ public class AsController {
 		return "redirect:/as/list";
 	}
 	
-	// 수정
+	/**as 접수내역 수정:매장*/
 	@GetMapping("store/modify/{aNo}")
 	String storeModifyForm(Model mm, AsDTO dto) {
 		mm.addAttribute("dto",mapper.detail(dto.getANo()));
@@ -94,13 +94,13 @@ public class AsController {
 	
 	
 	//-------검색기능
-	// 매장검색
+	/**as 매장 검색 기능*/
 	@RequestMapping("store/sCodeSearch")
 	String sCodeSearch(Model mm, AsDTO dto) {
 		mm.addAttribute("sCodeSearch", mapper.sCodeSearch(dto));
 		return "as/store/sCodeSearch";
 	}
-	// 상품 검색
+	/**as 상품 검색 기능*/
 	@RequestMapping("store/pCodeSearch")
 	String pCodeSearch(Model mm, AsDTO dto) {
 		mm.addAttribute("pCodeSearch", mapper.pCodeSearch(dto));
