@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Update;
 public interface NoticeMapper {
 
 	@Select("select * from notice")
-	List<NoticeDTO> list();
+	List<NoticeDTO> list(NoticeDTO dto);
 
 //	@Select("select * from NOTICE order by n_no desc limit #{startPage}, #{endPage}")
 //	List<NoticeDTO> list();
@@ -31,4 +31,19 @@ public interface NoticeMapper {
 
 	@Delete("delete from notice where n_no = #{nNo}")
 	int delete(NoticeDTO dto);
+	
+	/**제목, 내용 검색*/
+	@Select({
+		" <script> "
+		," SELECT * from notice "
+		, " <where> "
+		, " 	<if test='title != null'> "
+		, " 		AND title like concat('%', #{title}, '%')"
+		, " 	</if> "
+		, " 	<if test='content != null'> "
+		, " 		AND content like concat('%', #{content}, '%')"
+		, " 	</if> "
+		, " </where> "
+		, " </script> "})
+	List<NoticeDTO> listPname(NoticeDTO dto);
 }

@@ -1,6 +1,5 @@
 package yurp.controller;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 import org.springframework.stereotype.Controller;
@@ -14,9 +13,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import yurp.model.NoticeDTO;
 import yurp.model.NoticeMapper;
+import yurp.model.StoreDTO;
 
 @Controller
 @RequestMapping("/notice")
@@ -24,25 +23,26 @@ public class NoticeController {
 
 	@Resource
 	NoticeMapper mapper;
-	
+
 	//**공지사항 목록*/
 	@RequestMapping("list")
-	String list(Model mm, HttpServletRequest request) {
-//		List<NoticeDTO> nList = mapper.list();
-//		System.out.println("nList : "+nList);		
-		mm.addAttribute("nList", mapper.list());
+	String list(Model mm, NoticeDTO dto, HttpServletRequest request) {
+		StoreDTO loginInfo = (StoreDTO)request.getSession().getAttribute("loginStore");
+		mm.addAttribute("login", loginInfo);
 		
-		HttpSession session = request.getSession();
-		session.getAttribute("loginStore");
-		
+		mm.addAttribute("nList", mapper.list(dto));
+		mm.addAttribute("nList", mapper.listPname(dto));
 		return "notice/list";
 	}
 	
 	//**공지사항 상세보기*/
 	@RequestMapping("detail/{nNo}")
-	String detail(Model mm, @PathVariable int nNo, NoticeDTO dto) {
+	String detail(Model mm, @PathVariable int nNo, NoticeDTO dto, HttpServletRequest request) {
 		mm.addAttribute("dto", mapper.detail(nNo));
-//		System.out.println(mapper.detail(n_no));
+
+		StoreDTO loginInfo = (StoreDTO)request.getSession().getAttribute("loginStore");
+		mm.addAttribute("login", loginInfo);
+		
 		return "notice/detail";
 	}
 
@@ -56,13 +56,7 @@ public class NoticeController {
 	
 		String file = "";
 		for (MultipartFile mpf : mr.getFiles("upFile")) {
-			file += mpf.getOriginalFilename();
-//			System.out.println(mpf.getOriginalFilename()+"-----------");
-//			System.out.println(mpf.getName());	
-//			System.out.println(mpf.getContentType());
-//			System.out.println(mpf.getSize());
-//			System.out.println(mpf.isEmpty());
-			
+			file += mpf.getOriginalFilename();			
 			fileUpload(mpf, request);
 		}
 		mm.addAttribute("file",file);
@@ -142,5 +136,4 @@ public class NoticeController {
 		}
 		
     }
-	
 }

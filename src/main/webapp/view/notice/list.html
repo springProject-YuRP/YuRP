@@ -33,21 +33,36 @@
 
 </style>
 <body>
-<h1>공지 리스트</h1>
-
-<table border="">
-<!-- 			<td colspan="3" align="right" th:if="${dto.sCode} == 'admin'">
-				<a href="/notice/insert">글쓰기</a>
-				<a href="/">뒤로가기</a>
-			</td>
-			<td colspan="3" align="right" th:if="${dto.sCode} != 'admin'">
-				<a href="/">뒤로가기</a>
-			</td> -->
-		</tr>
-	</thead>
-</table>
 
 <section>
+	<h1>공지사항</h1>
+	
+	
+	<form action="">
+	
+		<!-- 검색창은 이런식으로?  -->
+		<div class="searchBox container mb-3 border-bottom">
+			<div class="row g-3 align-items-center">		
+				<div class="col-md-auto">			
+					<div class="input-group">
+						<select class="form-select" name="cate" th:tield="*{cate}">
+	                        <option value="" selected disabled hidden>--선택하세요</option>
+	                        <option value="title">제목</option>
+	                        <option value="content">내용</option>
+	                    </select>
+					</div>
+				</div>				
+				<div class="col-md-auto">				
+					<div class="input-group">
+						<input type="text" class="form-control" name="title" />
+						<input class="btn btn-outline-secondary" type="submit" value="검색"/>
+					</div>
+				</div>											
+			</div>
+		</div>
+	</form>
+	
+	
 	<!-- 테이블은 이런식으로?  -->
 	<div class="tableBox mb-3">
 		<table class="table table-striped-columns">
@@ -73,8 +88,11 @@
 		</table>
 	</div>
 	<div class="row justify-content-end align-items-center">
-		<div class="col-auto mb-3">				
+		<div class="col-auto mb-3" th:if="${login.sCode} == 'admin'">				
 			<a href="/notice/insert" class="btn btn-dark">글쓰기</a>	
+			<a href="/" class="btn btn-dark">뒤로가기</a>	
+		</div>
+		<div class="col-auto mb-3" th:if="${login.sCode} != 'admin'">					
 			<a href="/" class="btn btn-dark">뒤로가기</a>	
 		</div>
 	</div>
