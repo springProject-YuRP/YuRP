@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import yurp.model.AsDTO;
 import yurp.model.AsMapper;
+import yurp.model.StoreDTO;
 
 @Controller
 @RequestMapping("/as")
@@ -20,17 +23,25 @@ public class AsController {
 	
 	/**as 목록*/
 	@RequestMapping("list")
-	String list(Model mm, AsDTO dto) {
+	String list(Model mm, AsDTO dto, HttpServletRequest request) {
 		mm.addAttribute("sNames", mapper.sNames());	
 		mm.addAttribute("aList",mapper.list(dto));
 		mm.addAttribute("aList", mapper.listPname(dto));	// 검색기능
+		
+		StoreDTO loginInfo = (StoreDTO)request.getSession().getAttribute("loginStore");
+		mm.addAttribute("login", loginInfo);
+		
 		return "as/list";
 	}
 	
-	/**as 상세내역:본사*/
+	/**as 상세내역*/
 	@RequestMapping("detail/{aNo}")
-	String detail(Model mm, @PathVariable int aNo) {
+	String detail(Model mm, @PathVariable int aNo, HttpServletRequest request) {
 		mm.addAttribute("dto", mapper.detail(aNo));
+		
+		StoreDTO loginInfo = (StoreDTO)request.getSession().getAttribute("loginStore");
+		mm.addAttribute("login", loginInfo);
+		
 		return "as/detail";
 	}
 	
@@ -49,13 +60,6 @@ public class AsController {
 	
 	
 	//-----매장
-	/**as 상세보기:매장*/
-	@RequestMapping("store/detail/{aNo}")
-	String storeDetail(Model mm, @PathVariable int aNo) {
-		mm.addAttribute("dto", mapper.detail(aNo));
-		return "as/store/detail";
-	}
-	
 	/**as 접수:매장*/
 	@GetMapping("store/insert")
 	String storeInsertFrom(Model mm, AsDTO dto) { // insert.html 열기
