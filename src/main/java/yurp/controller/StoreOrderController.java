@@ -1,5 +1,7 @@
 package yurp.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,8 +66,10 @@ public class StoreOrderController {
 	
 	@GetMapping("prodAdd")
 	void prodAdd(Model model, ProductDTO dto) {
+
 		model.addAttribute("blist",mapper.blist());
 		model.addAttribute("prod",pmapper.prodList(dto));
+
 	}
 	
 	@PostMapping("insert")
