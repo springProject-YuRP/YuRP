@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
-import yurp.model.SellDTO;
 import yurp.model.InandoutDTO;
 import yurp.model.InandoutMapper;
 
@@ -24,8 +23,9 @@ public class InandoutController {
 	}
 	
 	@RequestMapping("inandout/detail")
-	String sNameSearch(Model mm, InandoutDTO dto) {
-		mm.addAttribute("detail", inandoutmapper.detail(dto));
+	String viewDetail(Model mm, InandoutDTO dto) {
+		mm.addAttribute("viewDetail", inandoutmapper.viewDetail(dto));
+		System.out.println(mm);
 		return "stock/inandout/detail";
 	}
 	
