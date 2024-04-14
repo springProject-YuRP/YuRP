@@ -61,6 +61,15 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function(){
+		
+		$("#delete").on("click",function(){
+			$("input[type='checkbox']:checked").each(function(){
+				  var row = $(this).closest('tr');
+			        row.remove();
+			})
+		})
+		
+		
 		var prodChk = 0;
 		$("#prodAdd").on("click",function(){
 			
@@ -82,6 +91,7 @@
 	    for(var i=0; i<arr.length; i++){
 			
 			 var tr = $("<tr>")
+			 tr.append($("<td>").append($("<input type='checkbox'>")));
 			 tr.append($("<td>").text(i+1+prodChk));
 			 tr.append($("<td>").text(arr[i].bCode));
 			 tr.append($("<td>").text(arr[i].pNum)); 
@@ -89,8 +99,9 @@
 			 tr.append($("<td>").text(arr[i].pSize));
 			 tr.append($("<td>").text(arr[i].liPrice));
 			 tr.append($("<td>").text(arr[i].pName));
-			 tr.append($("<td>").text(arr[i].cnt)); 
-			 tr.append($("<td>").text(arr[i].reqCnt)); 
+			 tr.append($("<td>").text(arr[i].storeCnt)); 
+			 tr.append($("<td>").text(arr[i].adminCnt)); 
+			 tr.append($("<td>").text(arr[i].reqCnt));
 			
 			 
 			 
@@ -101,7 +112,6 @@
 			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].pSize' value='"+arr[i].pSize+"'>"));
 			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].liPrice' value='"+arr[i].liPrice+"'>"));
 			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].pName' value='"+arr[i].pName+"'>"));
-			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].cnt' value='"+arr[i].cnt+"'>"));
 			 tr.append($("<input type='hidden' name='rtArr["+parseInt(i+prodChk)+"].reqCnt' value='"+arr[i].reqCnt+"'>")); 
 		 	 
 
@@ -174,6 +184,7 @@
 		<table class="table table-striped-columns">
 			<colgroup>
 				<col style="min-width:80px; width: 5%;"/>
+				<col style="min-width:80px; width: 5%;"/>
 				<col style=""/>
 				<col style=""/>
 				<col style=""/>
@@ -190,6 +201,7 @@
 			<thead>
 		
 				<tr class="table-dark top">
+					<td></td>
 					<td>no</td>
 					<td>브랜드</td> 
 					<td>품번</td>
@@ -197,6 +209,7 @@
 					<td>사이즈</td>
 					<td>가격</td>
 					<td>품명</td>
+					<td>매장재고</td>
 					<td>창고재고</td>
 					<td>요청수량</td>
 				</tr>
@@ -208,8 +221,8 @@
 	</div>
 	<div class="row justify-content-between align-items-center">
 		<div class="col-auto mb-3">				
-				<a href="product/insert" class="btn btn-warning">선택수정</a>	
-				<a href="product/insert" class="btn btn-danger">선택삭제</a>	
+				<a id="modify" class="btn btn-warning">선택수정</a>	
+				<a id="delete" class="btn btn-danger">선택삭제</a>	
 		</div>
 		<div class="col-auto mb-3">				
 				<a id="prodAdd" class="btn btn-primary">상품추가</a>	

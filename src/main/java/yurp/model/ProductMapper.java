@@ -37,17 +37,17 @@ public interface ProductMapper {
 			+ "</script>")
 	List<ProductDTO> list(ProductDTO dto);
 	
-//	@Select("select p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
-//			+ "from product p "
-//			+ "join inventory i "
-//			+ "where i.p_code = p.p_code and i.s_code  = 'admin' and p.b_code  = '117901'")
+
+//창고재고
 	@Select("<script>"
-			+ "select "
-			+"p.b_code, p.p_num, p.color, p.p_size, p.p_name, p.p_price, li_price, i.cnt, i.i_no  "
+			+ "select DISTINCT p.p_code ,p.p_num ,p.color ,p.p_size,p.p_name,p.b_code,i.s_code,i2.s_code,p.li_price, "
+			+ " i.cnt AS store_cnt, "
+			+ "	i2.cnt AS admin__cnt "
 			+ "from product p "
-			+ "join inventory i "
+			+ " JOIN  inventory i on i.s_code = 'yurp002'"//세션
+			+ " JOIN  inventory i2 on i2.s_code = 'admin'"
 			+ "<where>"
-			+ " i.p_code = p.p_code and i.s_code  = 'admin' and p.b_code = #{bCode} "
+			+ " i.p_code = p.p_code and p.b_code = #{bCode} "
 			+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
 			+ 	"<if test='pNumChk != null and pNumChk != \"\"'> "
 			+ 	"and p.p_num like concat('%',#{pNumChk},'%') "
@@ -57,6 +57,27 @@ public interface ProductMapper {
 			+ "</script> "
 			 )
 	List<ProductDTO> prodList(ProductDTO dto);
+	
+		
+	//타매장
+		@Select("<script>"
+				+ "select DISTINCT p.p_code ,p.p_num ,p.color ,p.p_size,p.p_name,p.b_code,i.s_code,i2.s_code,p.li_price, "
+				+ " i.cnt AS store_cnt, "
+				+ "	i2.cnt AS in__cnt "
+				+ "from product p "
+				+ " JOIN  inventory i on i.s_code = 'yurp002'"//세션
+				+ " JOIN  inventory i2 on i2.s_code = (select s_code from store s where s.s_name = #{sName})" //파라미터?	
+				+ "<where>"
+				+ " i.p_code = p.p_code and p.b_code = #{bCode}  "
+				+ "	<trim prefix=' ' suffixOverrides = 'and | or'> "
+				+ 	"<if test='pNumChk != null and pNumChk != \"\"'> "
+				+ 	"and p.p_num like concat('%',#{pNumChk},'%') "
+				+ 	"</if>"
+				+ "	</trim>"
+				+ "</where> "
+				+ "</script> "
+				 )
+		List<ProductDTO> storeProdList(ProductDTO dto);
 	
 	@Select("select * from brand")
 	List<BrandDTO> brandList();

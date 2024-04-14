@@ -19,7 +19,7 @@ import yurp.model.StoreOrderDTO;
 import yurp.model.StoreOrderMapper;
 
 @Controller
-@RequestMapping("/stock")
+@RequestMapping("/stock/rt")
 public class RtController {
 
 	@Resource
@@ -28,53 +28,50 @@ public class RtController {
 	@Resource
 	ProductMapper pmapper;
 	
-	@GetMapping("rt/list")
-	String list(Model model) {
-		model.addAttribute("listData",mapper.rtlist());
+	@GetMapping("list")
+	String list(Model model,StoreOrderDTO dto) {
+		model.addAttribute("slist",mapper.slist());
+		model.addAttribute("listData",mapper.rtlist(dto));
 		return "stock/rt/list";
 	}
 	
-//	@RequestMapping("detail")
-//	String detail(Model model, @RequestParam String rStat) {
-//		System.out.println(rStat);
-//
-//		model.addAttribute("detailData",mapper.detail(rStat));
-//		return "storeOrder/detail";
-//	}
+	@RequestMapping("detail")
+	String detail(Model model, @RequestParam String rStat) {
+		model.addAttribute("detailData",mapper.rtdetail(rStat));
+		return "stock/rt/detail";
+	}
+	
+	@RequestMapping("request")
+	String request(Model model) {
+		String st = "";
+		if(mapper.maxStat() != null) {
+			String [] arr =  mapper.maxStat().split("-");
+			int stat = Integer.parseInt(arr[1])+1;
+			if(stat> 9){
+				st = "00"+stat;
+			}else{
+				st = "000"+stat;
+			}
+		}else {
+			st = "0001";
+		}
+		
+		model.addAttribute("stat",st);
+		model.addAttribute("slist",mapper.slist());
+		return "stock/rt/request";
+	}
 //	
-//	@RequestMapping("request")
-//	String request(Model model) {
-//		String st = "";
-//		if(mapper.maxStat() != null) {
-//			String [] arr =  mapper.maxStat().split("-");
-//			int stat = Integer.parseInt(arr[1])+1;
-//			if(stat> 9){
-//				st = "00"+stat;
-//			}else{
-//				st = "000"+stat;
-//			}
-//		}else {
-//			st = "0001";
-//		}
-//		
-//		model.addAttribute("stat",st);
-//		model.addAttribute("slist",mapper.slist());
-//		return "storeOrder/request";
-//	}
-//	
-//	@GetMapping("prodAdd")
-//	void prodAdd(Model model, ProductDTO dto) {
-//		model.addAttribute("bdto",mapper.blist());
-//		model.addAttribute("prod",pmapper.prodList(dto));
-//	}
-//	
-//	@PostMapping("insert")
-//	String excel(HttpServletRequest request,StoreOrderDTO dto,DTOs dtos) {
-//		System.out.println(dto);
-//
-//		System.out.println(dtos.getRtArr());
-//		mapper.insert(dto);
-//		mapper.detailInsert(dtos.getRtArr(),dto.getRStat(),dto.getSName());
-//		return "redirect:/storeOrder/list";
-//	}
+	@GetMapping("prodAdd")
+	void prodAdd(Model model, ProductDTO dto) {
+		model.addAttribute("blist",mapper.blist());
+		model.addAttribute("prod",pmapper.storeProdList(dto));
+		model.addAttribute("sName",dto.getSName());
+	}
+	
+	@PostMapping("insert")
+	String excel(HttpServletRequest request,StoreOrderDTO dto,DTOs dtos) {
+		mapper.insert(dto);
+		mapper.detailInsert(dtos.getRtArr(),dto.getRStat(),dto.getSName());
+		return "redirect:/stock/rt/list";
+	}
 }

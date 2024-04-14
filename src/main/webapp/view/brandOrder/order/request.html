@@ -61,7 +61,12 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 	$(function(){
-		
+		$("#delete").on("click",function(){
+			$("input[type='checkbox']:checked").each(function(){
+				  var row = $(this).closest('tr');
+			        row.remove();
+			})
+		})
 		
 		$("#modify").on('click',function(){
 			alert("aaa")
@@ -70,7 +75,7 @@
 		$("#prodAdd").on("click",function(){
 			var bCode = $("select[name='bCode'] :selected").val();
 			window.open("../order/prodAdd?bCode="+bCode,"_blank","width=1000,height=600"); 
-			console.log($("select[name='bCode'] :selected").val());
+	
 			   	
 		});
 	})
@@ -232,7 +237,7 @@
 	<div class="row justify-content-between align-items-center">
 		<div class="col-auto mb-3">				
 			<a id="modify" class="btn btn-warning">선택수정</a>	
-			<a href="product/insert" class="btn btn-danger">선택삭제</a>	
+			<a id="delete" class="btn btn-danger">선택삭제</a>	
 		</div>
 		<div class="col-auto mb-3">				
 			<a id="prodAdd" class="btn btn-primary">상품추가</a>	

@@ -55,7 +55,8 @@ $(function(){
                     pSize: tr.find("td[id='pSize']").text(),
                     liPrice: tr.find("td[id='liPrice']").text(),
                     pName: tr.find("td[id='pName']").text(),
-                    cnt: tr.find("td[id='cnt']").text(),
+                    storeCnt: tr.find("td[id='storeCnt']").text(),
+                    adminCnt: tr.find("td[id='adminCnt']").text(),
                     reqCnt: reqCntValue 
                 };
                 arr.push(obj);
@@ -121,13 +122,13 @@ $(function(){
 					<td>사이즈</td>
 					<td>가격</td>
 					<td>품명</td>
-					<td>창고재고</td>
 					<td>매장재고</td>
+					<td>창고재고</td>
 					<td>요청수량</td>
 				</tr>
 			</thead>
 			<tbody>
-			 	<tr th:each="prod : ${prod}">
+			 	  <tr th:each="prod : ${prod}">
 					<td th:text="${prodStat.index+1}"></td>
 				 	<input type="hidden" id="iNo" th:value="${prod.iNo}"/>
 					<td id="bCode" th:value="${prod.bCode}" th:text="${prod.bCode}"></td>
@@ -136,8 +137,8 @@ $(function(){
 	                <td id="pSize"  th:value="${prod.pSize}" th:text="${prod.pSize}"></td>
 	                <td id="liPrice" th:value="${prod.liPrice}" th:text="${prod.liPrice}"></td>
 	                <td id="pName"  th:value="${prod.pName}" th:text="${prod.pName}"></td>
-	                <td id="cnt"  th:value="${prod.cnt}" th:text="${prod.cnt}"></td>
-	                 <td id="cnt"  th:value="${prod.cnt}" th:text="${prod.cnt}"></td>
+	                <td id="storeCnt"  th:value="${prod.storeCnt}" th:text="${prod.storeCnt}"></td>
+	                 <td id="adminCnt"  th:value="${prod.adminCnt}" th:text="${prod.adminCnt}"></td>
 	                <td>
 	                     <input id="reqCnt" class="reqCnt"  type="number" style="width:80%;"/>
 	                 </td>
