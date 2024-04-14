@@ -11,13 +11,13 @@ import yurp.model.SellDTO;
 import yurp.model.SellMapper;
 
 @Controller
-@RequestMapping("/{subCate}/{service}")
+@RequestMapping("/stock")
 public class SellController {
 	
 	@Resource
 	SellMapper sellmapper;
 
-	@RequestMapping("list")
+	@RequestMapping("sales/list")
 	String sellList(Model mm, SellDTO dto) {
 		mm.addAttribute("sellData",sellmapper.list(dto));
 		mm.addAttribute("totData",sellmapper.tot(dto));
@@ -25,13 +25,13 @@ public class SellController {
 	}
 	
 	
-	@RequestMapping("sNameSearch")
+	@RequestMapping("sales/sNameSearch")
 	String sNameSearch(Model mm, SellDTO dto) {
 		mm.addAttribute("sNameSearch", sellmapper.sNameSearch(dto));
 		return "stock/sales/sNameSearch";
 	}
 	
-	@RequestMapping("pNumSearch")
+	@RequestMapping("sales/pNumSearch")
 	String pNumSearch(Model mm, SellDTO dto) {
 		mm.addAttribute("pNumSearch", sellmapper.pNumSearch(dto));
 		return "stock/sales/pNumSearch";
