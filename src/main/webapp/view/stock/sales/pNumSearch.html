@@ -51,7 +51,7 @@ $(function(){
 })
 </script>
 <body>
-<h1>storeSearch</h1>
+<h1>pNumSearch</h1>
 <section>
 <form action="">
 	<div class="searchBox container mb-3 border-bottom">
@@ -59,21 +59,21 @@ $(function(){
 			<div class="col-md-auto">				
 				<div class="input-group">
 					<span class="input-group-text">상품명</span>
-					<input type="text" class="form-control" name="pName" placeholder="매장명 입력"/>
+					<input type="text" class="form-control" name="pName" placeholder="상품명 입력"/>
 				</div>
 			</div>
 			<div class="col-md-auto">				
 				<div class="input-group">
 					<span class="input-group-text">품번</span>
-					<input type="text" class="form-control" name="pNum" placeholder="매장코드 입력"/>
+					<input type="text" class="form-control" name="pNum" placeholder="품번 입력"/>
 				</div>
 			</div>						
 			<div class="col-md-auto">				
 				<div class="input-group">
 					<span class="input-group-text">시즌</span>
-					<input type="text" class="form-control" name="grade" placeholder="매니저 입력"/>
+					<input type="text" class="form-control" name="season" placeholder="시즌 입력"/>
 				</div>
-			</div>						
+			</div>											
 		</div>
 		<div class="row justify-content-end align-items-center">
 			<div class="col-auto mb-3">				
@@ -92,12 +92,14 @@ $(function(){
 				<col style=""/>
 				<col style=""/>
 				<col style=""/>
+				<col style=""/>
 			</colgroup>
 			<thead>
 				<tr class="table-dark">
 					<td>번호</td>
 					<td>품번</td>
 					<td>상품명</td>
+					<td>시즌</td>
 					<td>원가</td>
 					<td>할인율</td>
 					<td>가격</td>
@@ -108,6 +110,7 @@ $(function(){
 					<td th:text="${dto.pNo}"></td>
 					<td th:value="${dto.pNum}" th:text="${dto.pNum}"></td>
 					<td th:text="${dto.pName}"></td>
+					<td th:text="${dto.season}"></td>
 					<td th:text="${dto.liPrice}"></td>
 					<td th:text="${dto.discount}"></td>
 					<td th:text="${dto.pPrice}"></td>
