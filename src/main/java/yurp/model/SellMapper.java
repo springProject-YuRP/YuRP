@@ -139,17 +139,17 @@ public interface SellMapper {
 			+ "		<if test='pNum != null and pNum != \"\"' > "
 			+ "			p_num like concat('%',#{pNum},'%') and"
 			+ "		</if> "
-			+ "		<if test='pName != null and Name!= \"\"' > "
-			+ "			p_name like concat('%',#{Name},'%') and"
+			+ "		<if test='pName != null and pName!= \"\"' > "
+			+ "			p_name like concat('%',#{pName},'%') and"
 			+ "		</if> "
 			
 			+ "		<if test='season != null and season!= \"\"' > "
 			+ "			season like concat('%',#{season},'%') and"
 			+ "		</if> "
 			
-			+ "		<if test='grade != null and grade != \"\"' > "
-			+ "			grade like concat('%',#{grade},'%') "
-			+ "		</if> "
+//			+ "		<if test='grade != null and grade != \"\"' > "
+//			+ "			grade = #{grade} "
+//			+ "		</if> "
 			
 			+ "	</trim>"
 			+ "</where> "

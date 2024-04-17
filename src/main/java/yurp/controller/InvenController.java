@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.annotation.Resource;
 import yurp.model.InvenDTO;
 import yurp.model.InvenMapper;
+import yurp.model.TemplateData;
 
 @Controller
-@RequestMapping("/stock")
+@RequestMapping("/stock/inven")
 public class InvenController {
 	
 	@Resource
 	InvenMapper invenMapper;
 
-	@RequestMapping("inven/list")
-	String invenList(Model mm, InvenDTO dto) {
+	@RequestMapping("{service}")
+	String invenList(Model mm, InvenDTO dto,TemplateData templateData) {
+		templateData.setCate("stock/inven");
+		
 		mm.addAttribute("invenData",invenMapper.list(dto));
-		return "stock/inven/list";
+		return "template";
 	}
 	
 	

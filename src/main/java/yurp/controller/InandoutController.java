@@ -18,14 +18,14 @@ public class InandoutController {
 
 	@RequestMapping("{service}")
 	String sellList(Model mm, InandoutDTO dto,TemplateData templateData) {
-		templateData.setDir("stock/inandout");
+		templateData.setCate("stock/inandout");
 		
 		mm.addAttribute("inandoutData",inandoutmapper.list(dto));
 		mm.addAttribute("totData",inandoutmapper.tot(dto));
-		return "stock/template";
+		return "template";
 	}
 	
-	@RequestMapping("inandout/detail")
+	@RequestMapping("detail")
 	String viewDetail(Model mm, InandoutDTO dto) {
 		mm.addAttribute("viewDetail", inandoutmapper.viewDetail(dto));
 		return "stock/inandout/detail";

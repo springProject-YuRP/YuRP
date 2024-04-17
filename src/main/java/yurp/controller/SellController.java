@@ -44,7 +44,7 @@ public class SellController {
 		
 		//templateData.setCate("stock");
 		//templateData.setSubCate("sales");
-		templateData.setDir("stock/sales");
+		templateData.setCate("stock/sales");
 		
 //		TemplateData templateData = new TemplateData();
 //		templateData.setSubCate("sales");
@@ -61,7 +61,7 @@ public class SellController {
 //		}
 		
 		//return "stock/sales/list";
-		return "stock/template";
+		return "template";
 	}
 	
 	
