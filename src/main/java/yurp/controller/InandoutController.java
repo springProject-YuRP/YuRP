@@ -7,25 +7,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.annotation.Resource;
 import yurp.model.InandoutDTO;
 import yurp.model.InandoutMapper;
+import yurp.model.TemplateData;
 
 @Controller
-@RequestMapping("/stock")
+@RequestMapping("/stock/inandout")
 public class InandoutController {
 	
 	@Resource
 	InandoutMapper inandoutmapper;
 
-	@RequestMapping("inandout/list")
-	String sellList(Model mm, InandoutDTO dto) {
+	@RequestMapping("{service}")
+	String sellList(Model mm, InandoutDTO dto,TemplateData templateData) {
+		templateData.setDir("stock/inandout");
+		
 		mm.addAttribute("inandoutData",inandoutmapper.list(dto));
 		mm.addAttribute("totData",inandoutmapper.tot(dto));
-		return "stock/inandout/list";
+		return "stock/template";
 	}
 	
 	@RequestMapping("inandout/detail")
 	String viewDetail(Model mm, InandoutDTO dto) {
 		mm.addAttribute("viewDetail", inandoutmapper.viewDetail(dto));
-		System.out.println(mm);
 		return "stock/inandout/detail";
 	}
 	

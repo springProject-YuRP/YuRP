@@ -104,7 +104,7 @@ $(function(){
 				</tr>
 			</thead>
 			<tbody>
-			 	<tr th:each="dto : ${pNumSearch}" >
+			 	<tr th:each="dto : ${mainData}" >
 					<td th:text="${dto.pNo}"></td>
 					<td th:value="${dto.pNum}" th:text="${dto.pNum}"></td>
 					<td th:text="${dto.pName}"></td>

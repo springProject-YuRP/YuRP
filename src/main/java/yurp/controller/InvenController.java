@@ -7,20 +7,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.annotation.Resource;
-import yurp.model.SellDTO;
-import yurp.model.SellMapper;
+import yurp.model.InvenDTO;
+import yurp.model.InvenMapper;
 
 @Controller
 @RequestMapping("/stock")
 public class InvenController {
 	
 	@Resource
-	SellMapper sellmapper;
+	InvenMapper invenMapper;
 
 	@RequestMapping("inven/list")
-	String invenList(Model mm, SellDTO dto) {
-//		mm.addAttribute("sellData",sellmapper.list(dto));
-//		mm.addAttribute("totData",sellmapper.tot(dto));
+	String invenList(Model mm, InvenDTO dto) {
+		mm.addAttribute("invenData",invenMapper.list(dto));
 		return "stock/inven/list";
 	}
 	
