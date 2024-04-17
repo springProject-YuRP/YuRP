@@ -43,7 +43,7 @@ public interface StoreMapper {
 	
 	@Update("update store set "
 			+ "s_pw=#{sPw}, s_name=#{sName}, grade=#{grade}, addr=#{addr}, tel=#{tel}, email=#{email}, manager=#{manager}, auth=#{auth} "
-			+ "where s_no = #{sNo}")
+			+ "where s_code = #{sCode}")
 	int modify(StoreDTO dto);
 	
 	

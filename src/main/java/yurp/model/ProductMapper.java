@@ -35,7 +35,7 @@ public interface ProductMapper {
 
 			+ "</where>"
 			+ "</script>")
-	List<ProductDTO> list(ProductDTO dto);
+	List<ProductDTO> list(ArrayList<ProductDTO> arr);
 	
 
 //창고재고

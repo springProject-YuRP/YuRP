@@ -9,27 +9,28 @@
 </head>
 <body>
 
-<th:block th:replace="inc/header"/>
+<!-- <th:block th:replace="inc/header"/> -->
 
 
 	<section class="container-fluid m-auto row justify-content-center align-items-center" style="height: 100vh;">
 		<div class="col" style="max-width:300px">
-			<form action="login" method="post">
+			<form action="dashboard" method="post">
 			  <div class="mb-3">
-			    <label for="exampleInputEmail1" class="form-label">매장코드</label>
+			    <label for="sCode" class="form-label">매장코드</label>
 			    <input type="text" class="form-control" id="sCode" name="sCode" aria-describedby="emailHelp">
 			    
 			  </div>
 			  <div class="mb-3">
-			    <label for="exampleInputPassword1" class="form-label">패스워드</label>
+			    <label for="sPw" class="form-label">패스워드</label>
 			    <input type="password" class="form-control" id="sPw" name="sPw">
 			  </div>
- 		      <div id="emailHelp" class="form-text text-center mb-2">매장코드 및 패스워드 망실시<br/> 본사문의 (02-000-0000)</div>
+ 		      <div class="form-text text-center mb-2">매장코드 및 패스워드 망실시<br/> 본사문의 (02-000-0000)</div>
 			  <div class="row justify-content-center">
 				  <button type="submit" class="btn btn-primary col-3">로그인</button>
 			  </div>
 			</form>
 		</div>
+		
 	</section>
 </body>
 </html>

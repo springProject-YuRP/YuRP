@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>계정 등록</h2>
-<form action="" method="post">
+<form action="insertReg" method="post">
 	<table>
 		<tr>
 			<td>매장아이디</td>
@@ -57,78 +57,24 @@
 	
 	<div class="authSetBox">
 		<h3>권한설정</h3>
-		<div>
-			<h4>카테고리1</h4>
-			<ul>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate101" />
-						카테고리1목록				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate102" />
-						카테고리1상세				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate103" />
-						카테고리1등록				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate104" />
-						카테고리1수정				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate105" />
-						카테고리1삭제				
-					</label>
-				</li>
-			</ul>
+		<div class="form-check">
+		  <input class="form-check-input" type="radio" name="auth" id="authCenter" value="관리자" checked>
+		  <label class="form-check-label" for="authCenter">
+		    관리자
+		  </label>
 		</div>
-		
-		<div>
-			<h4>카테고리2</h4>
-			<ul>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate201" />
-						카테고리2목록				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate202" />
-						카테고리2상세				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate203" />
-						카테고리2등록				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate204" />
-						카테고리2수정				
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="checkbox" name="auth" value="cate205" />
-						카테고리2삭제				
-					</label>
-				</li>
-			</ul>
+		<div class="form-check">
+		  <input class="form-check-input" type="radio" name="auth" id="authStore" value="매장">
+		  <label class="form-check-label" for="authStore">
+		    매장
+		  </label>
 		</div>
-
+		<div class="form-check">
+		  <input class="form-check-input" type="radio" name="auth" id="authAs" value="AS">
+		  <label class="form-check-label" for="authAs">
+		    AS
+		  </label>
+		</div>
 	</div>
 	
 	<input type="submit" value="등록"/>
